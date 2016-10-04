@@ -10,4 +10,7 @@
     ``` 
     node server.js
     ```
-  * Open [this link](http://localhost:8080) on your browser (Don't use safari)
+  * Open [this link](http://localhost:8080) (localhost:8080) on your browser to see the homepage (Don't use safari)
+  
+  * APIs
+   * 
