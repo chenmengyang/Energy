@@ -10,6 +10,4 @@
     ``` 
     node server.js
     ```
-  * Open http://localhost:8080 on your browser (Don't use safari)
-  In default the program use localhost as the host and 8080 as the port
-   
+  * Open [this link]http://localhost:8080 on your browser (Don't use safari)
