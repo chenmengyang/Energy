@@ -1,8 +1,8 @@
 # Energy Management for Homes
 
 ## Installation
-  * Install Node on your computer
-  * Install Mongodb on your computer
+  * Download and install [Node](https://nodejs.org/en/) on your computer
+  * Download and install [Mongodb](https://www.mongodb.com) on your computer
   * git clone this repository to your computer
   
 ## Start Server
@@ -10,5 +10,5 @@
     ``` 
     node server.js
     ```
-  * Open localhost:8080 on your browser (Don't use safari)
+  * Open http://localhost:8080 on your browser (Don't use safari)
    
