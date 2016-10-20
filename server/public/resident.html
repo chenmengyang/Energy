@@ -1,0 +1,100 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h5 class="card-header">Current Residents ({{Residents.length}})</h5>
+  </div>
+	<div class="panel-body">
+		<table class="table table-bordered table-condensed table-hover">
+			<thead class="thead-default">
+				<tr>
+					<th>Account</th>
+					<th>Password</th>
+					<th>Email</th>
+					<th>Phone</th>
+					<th>Address</th>
+                    <th>Room</th>
+                    <th>Actions</th>
+				</tr>
+			</thead>
+			<tbody *ngIf="Residents.length === 0">
+				<tr style="background-color:grey">
+					<td colspan="7">There are no residents in the DB.</td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="!isEditing">
+				<tr *ngFor="let resident of Residents">
+					<td>{{resident.account}}</td>
+					<td>{{resident.password}}</td>
+					<td>{{resident.email}}</td>
+					<td>{{resident.phone}}</td>
+					<td>{{resident.address}}</td>
+                    <td>{{resident.room}}</td>
+					<td>
+						<button class="btn btn-sm btn-warning" (click)="enableEditing(resident)"><i class="fa fa-pencil"></i> Edit</button> <button class="btn btn-sm btn-danger" (click)="submitRemove(resident)"><i class="fa fa-trash"></i> Delete</button>
+					</td>
+				</tr>	
+			</tbody>
+
+			<!--<tbody *ngIf="isEditing">
+				<tr>
+					<td colspan="7">
+						<form class="form-inline" #form="ngForm" (ngSubmit)="submitEdit(addr)" style="display:inline">
+							<div class="form-group">
+								<input class="form-control" type="text" name="name" [(ngModel)]="addr.name" placeholder="Name" required>
+							</div>
+							<div class="form-group">
+								<input class="form-control" type="text" name="country" [(ngModel)]="addr.country" placeholder="country" required>
+							</div>
+							<div class="form-group">
+								<input class="form-control" type="text" name="city" [(ngModel)]="addr.city" placeholder="city" required>
+							</div>
+							<div class="form-group">
+								<input class="form-control" type="text" name="street" [(ngModel)]="addr.street" placeholder="street" required>
+							</div>
+							<div class="form-group">
+								<input class="form-control" type="text" name="building" [(ngModel)]="addr.building" placeholder="building" required>
+							</div>
+							<div class="form-group">
+								<input class="form-control" type="text" name="block" [(ngModel)]="addr.block" placeholder="block" required>
+							</div>
+							<button class="btn btn-sm btn-primary" type="submit" [disabled]="!form.form.valid"><i class="fa fa-floppy-o"></i> Save</button>
+						</form>
+						<button class="btn btn-sm btn-warning" (click)="cancelEditing()"><i class="fa fa-times"></i> Cancel</button>
+					</td>
+				</tr>
+			</tbody>-->
+		</table>
+	</div>
+</div>
+
+<div class="panel panel-default" *ngIf="!isEditing">
+	<div class="panel-heading">
+		<h5 class="card-header">Add new resident</h5>
+	</div>
+	<div class="panel-body">
+		<form class="form-inline" [formGroup]="addResidentForm" (ngSubmit)="submitAdd()" style="text-align:center">
+			<div class="form-group">
+			    <input class="form-control" type="text" name="account" formControlName="account" placeholder="Account">
+			</div>
+			<div class="form-group">
+				<input class="form-control" type="text" name="password" formControlName="password" placeholder="Password">
+			</div>
+			<div class="form-group">
+				<input class="form-control" type="text" name="email" formControlName="email" placeholder="Email">
+			</div>
+			<div class="form-group">
+				<input class="form-control" type="text" name="phone" formControlName="phone" placeholder="Phone">
+			</div>
+			<div class="form-group">
+                <select id="address_selection" class="form-control" formControlName="address">
+                    <option value="" selected disabled>Address</option>
+                    <option *ngFor="let addr of ass" [value]="addr.name">{{addr.name}}</option>
+                </select>
+				<!--<input class="form-control" type="text" name="address" formControlName="address" placeholder="address">-->
+			</div>
+			<div class="form-group">
+				<input class="form-control" type="text" name="room" formControlName="room" placeholder="room">
+			</div>
+			<button class="btn btn-primary" type="submit" [disabled]="!addResidentForm.valid"><i class="fa fa-floppy-o"></i>Add</button>
+		</form>
+	</div>
+</div>

@@ -3,12 +3,12 @@
   var map = {
     'app':                        'app', // 'dist',
     '@angular/forms': '/@angular/forms/bundles/forms.umd.js',
-    'rxjs':                       'libs',//'node_modules/rxjs'
+    'rxjs':                       'libs'//'node_modules/rxjs'
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
     'app':                        { main: 'boot.js',  defaultExtension: 'js' },
-    'rxjs':                       { defaultExtension: 'js' },
+    'rxjs':                       { defaultExtension: 'js' }
   };
   var ngPackageNames = [
     'common',

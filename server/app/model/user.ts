@@ -5,7 +5,8 @@ export class User{
     public password:string;
     public email:string;
     public phone:string;
-    public address:Object;
+    public address:string;
+    public room:string;
     // public isNew:Boolean;
     constructor(){}
 }

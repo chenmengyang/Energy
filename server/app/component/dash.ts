@@ -6,4 +6,8 @@ import {Router} from '@angular/router';
     // providers:[UserService]
 })
 export class DashComponent {
+    constructor(private router:Router)
+    {
+        this.router.navigate(['/Dash/Address']);
+    }
 }

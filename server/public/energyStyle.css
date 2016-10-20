@@ -1,9 +1,35 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
+#top-nav{
+  background-color: #5996E5;
+  background-color: transparent;
+}
+
+.panel .panel-default{
+  margin-top: .75rem;
+}
+
 .login-page {
   width: 360px;
   padding: 15% 0 0;
   margin: auto;
+}
+
+/*.nav-tabs > li > a{
+  border: medium none;
+  color: black;
+  background-color: #5996E5;
+}*/
+
+/*.nav-tabs > li > a:active{
+  background-color: #76b852;
+}*/
+
+.nav-tabs > li > a:hover{
+  background-color: #1c97d4 !important;
+    border: medium none;
+    border-radius: 0;
+    color:#fff;
 }
 
 .navbar-brand {
@@ -67,7 +93,8 @@
 }
 
 body {
-  background: #76b852;
+  background-color: transparent;
+  /*background: #5996E5;*/
   font-family: "Roboto", sans-serif;
 }
 
@@ -83,3 +110,11 @@ body {
     background-color: #AfAfAf;
     padding: 20px 0px 20px 0px;
 }
+
+/*table{
+  background-color:#76b852;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #BFB7B7;
+}*/

@@ -49,7 +49,12 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/router'
                 //     {path:'Alert',component:DashAlertComponent},
                 //     {path:'Mango',component:DashMangoComponent}
                 // ]},
-                { path: 'Dash', component: component_1.DashComponent },
+                { path: 'Dash', component: component_1.DashComponent, children: [
+                        { path: '', component: component_1.DashComponent },
+                        { path: 'Address', component: component_1.AddressComponent },
+                        { path: 'Janitor', component: component_1.JanitorComponent },
+                        { path: 'Resident', component: component_1.ResidentComponent }
+                    ] },
                 { path: 'History', component: component_1.HistoryComponent },
                 { path: 'Chart', component: component_1.ChartComponent },
                 // {path: 'Profile', component: ProfileComponent,children:[
@@ -74,7 +79,10 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/router'
                         component_1.HistoryComponent,
                         component_1.ChartComponent,
                         component_1.HelpComponent,
-                        component_1.LoginComponent],
+                        component_1.LoginComponent,
+                        component_1.AddressComponent,
+                        component_1.JanitorComponent,
+                        component_1.ResidentComponent],
                     providers: [login_1.LoginService],
                     bootstrap: [app_component_1.AppComponent]
                 }), 

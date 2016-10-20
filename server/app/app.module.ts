@@ -6,7 +6,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {AppComponent} from './app.component';
 import {LoginComponent,DashComponent,HistoryComponent,
-    ChartComponent,HelpComponent} from './component'
+        ChartComponent,HelpComponent,AddressComponent,
+        JanitorComponent,ResidentComponent} from './component'
 import {LoginService} from './service/login';
 // import {HeadersService} from './service/header';
 import {enableProdMode} from '@angular/core';
@@ -20,7 +21,12 @@ const routing = RouterModule.forRoot([
         //     {path:'Alert',component:DashAlertComponent},
         //     {path:'Mango',component:DashMangoComponent}
         // ]},
-        {path: 'Dash', component: DashComponent},
+        {path: 'Dash', component: DashComponent,children:[
+            {path:'',component:DashComponent},
+            {path:'Address',component:AddressComponent},
+            {path:'Janitor',component:JanitorComponent},
+            {path:'Resident',component:ResidentComponent}
+        ]},
         {path: 'History', component: HistoryComponent},
         {path: 'Chart', component: ChartComponent},
 
@@ -44,7 +50,10 @@ const routing = RouterModule.forRoot([
                    HistoryComponent,
                    ChartComponent,
                    HelpComponent,
-    			   LoginComponent],
+    			   LoginComponent,
+                   AddressComponent,
+                   JanitorComponent,
+                   ResidentComponent],
     providers: [LoginService],
     bootstrap: [AppComponent]
 })

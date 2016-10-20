@@ -1,4 +1,4 @@
-System.register(['./component/login', './component/dash', './component/history', './component/chart', './component/help'], function(exports_1, context_1) {
+System.register(['./component/login', './component/dash', './component/history', './component/chart', './component/help', './component/address', './component/janitor', './component/resident'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     function exportStar_1(m) {
@@ -24,6 +24,15 @@ System.register(['./component/login', './component/dash', './component/history',
             },
             function (help_1_1) {
                 exportStar_1(help_1_1);
+            },
+            function (address_1_1) {
+                exportStar_1(address_1_1);
+            },
+            function (janitor_1_1) {
+                exportStar_1(janitor_1_1);
+            },
+            function (resident_1_1) {
+                exportStar_1(resident_1_1);
             }],
         execute: function() {
         }

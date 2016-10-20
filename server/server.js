@@ -4,6 +4,7 @@ let express = require('express');
 let mongoose = require('mongoose');
 let app = express();
 let User = require('./model/user.js');
+let Address = require('./model/address.js');
 let Energy = require('./model/energy.js');
 let bodyParser = require('body-parser');
 // connect to database
@@ -25,13 +26,14 @@ app.use('/libs', express.static('node_modules/reflect-metadata'));
 
 // get the 
 app.get('/', function(req, res){
-  res.json({"text":"it sucks"});
+  res.json({"text":"1 suck"});
 });
 
 app.get('/login', function(req, res){
   User.find({},function(err,users){
       if(err) res.json(err);
-      res.send({"data":users});
+      console.log("a:"+users);
+    //   res.send({"data":users});
   })
 });
 
@@ -55,6 +57,95 @@ app.post('/login', function(req, res){
 
 app.get('/', function(req, res){
   res.send('hello world');
+});
+
+app.get('/api/address',(req,res)=>{
+    Address.find({},(err,addrs)=>{
+        if (err) res.send(err);
+        res.json(addrs);
+    });
+});
+
+app.post('/api/address',(req,res)=>{
+    var obj = new Address(req.body);
+    obj.save(function(err, obj) {
+            if(err) return console.error(err);
+            res.status(200).json(obj);
+    });
+});
+
+app.put('/api/address/:id', (req, res)=>{
+    Address.findOneAndUpdate({_id:req.params.id}, req.body, (err)=>{
+        if (err) return console.error(err);
+        res.sendStatus(200);
+    });
+});
+
+app.delete('/api/address/:id', (req, res)=>{
+    Address.findOneAndRemove({_id:req.params.id}, (err)=>{
+        if (err) return console.error(err);
+        res.sendStatus(200);
+    });
+});
+
+// Janitor apis 
+app.get('/api/janitors',(req,res)=>{
+    User.find({role:"janitor"},(err,janitors)=>{
+        if (err) res.send(err);
+        res.json(janitors);
+    });
+});
+
+app.post('/api/janitors',(req,res)=>{
+    var obj = new User(req.body);
+    obj.save(function(err, obj) {
+            if(err) return console.error(err);
+            res.status(200).json(obj);
+    });
+});
+
+app.put('/api/janitors/:id', (req, res)=>{
+    User.findOneAndUpdate({_id:req.params.id}, req.body, (err)=>{
+        if (err) return console.error(err);
+        res.sendStatus(200);
+    });
+});
+
+app.delete('/api/janitors/:id', (req, res)=>{
+    User.findOneAndRemove({_id:req.params.id}, (err)=>{
+        if (err) return console.error(err);
+        res.sendStatus(200);
+    });
+});
+
+// Resident apis 
+app.get('/api/residents',(req,res)=>{
+    User.find({role:"resident"},(err,residents)=>{
+        if (err) res.send(err);
+        res.json(residents);
+    });
+});
+
+app.post('/api/residents',(req,res)=>{
+    var obj = new User(req.body);
+    obj.save(function(err, obj) {
+            if(err) return console.error(err);
+            res.status(200).json(obj);
+    });
+});
+
+app.put('/api/residents/:id', (req, res)=>{
+    User.findOneAndUpdate({_id:req.params.id}, req.body, (err)=>{
+        if (err) return console.error(err);
+        res.sendStatus(200);
+    });
+});
+
+app.delete('/api/residents/:id', (req, res)=>{
+    User.findOneAndRemove({_id:req.params.id}, (err)=>{
+        if (err) return console.error(err);
+        res.sendStatus(200);
+    });
 });
 
 app.listen(3000);

@@ -1,5 +1,5 @@
 <nav *ngIf="_loginService.isLogged()" class="navbar navbar-default">
-    <div class="container-fluid">
+    <div id="top-nav" class="container-fluid">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed"
                             data-toggle="collapse"
@@ -37,7 +37,7 @@
     </div>
 </nav>
 
-<div class="container-fluid">
+<div class="container">
     <router-outlet></router-outlet>
 </div>
 
