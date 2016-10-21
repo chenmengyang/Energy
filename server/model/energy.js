@@ -2,10 +2,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var energySchema = new Schema({
-    date: String,
-    keyword: String,
+    period: String,
+    type: String,
     value: Number,
-    user: {type: mongoose.Schema.Types.ObjectId, ref:'User'}
+    resident: {type: mongoose.Schema.Types.ObjectId, ref:'User'}
 });
 
-module.exports = mongoose.model('Energy',energySchema);
+energySchema.index({ period: 1, type: 1, resident:1}, { unique: true });
+
+module.exports = mongoose.model('Energy',energySchema,'energy');

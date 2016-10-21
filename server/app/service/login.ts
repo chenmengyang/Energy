@@ -22,6 +22,14 @@ export class LoginService{
     getToken():string{
         return this.token;
     }
+    getRole()
+    {
+        return this.user.role;
+    }
+    getResponsibilty()
+    {
+        return this.user.responsibility;
+    }
     getUser(){
         return this.user;
     }

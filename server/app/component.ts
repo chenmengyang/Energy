@@ -6,3 +6,8 @@ export * from './component/help';
 export * from './component/address';
 export * from './component/janitor';
 export * from './component/resident';
+export * from './component/dashJ';
+export * from './component/jSubmit';
+export * from './component/jCheck';
+export * from './component/dashR';
+export * from './component/rAnalyse';

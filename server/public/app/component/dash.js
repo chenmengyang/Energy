@@ -24,7 +24,7 @@ System.register(['@angular/core', '@angular/router'], function(exports_1, contex
             let DashComponent = class DashComponent {
                 constructor(router) {
                     this.router = router;
-                    this.router.navigate(['/Dash/Address']);
+                    this.router.navigate(['/Dash-admin/Address']);
                 }
             };
             DashComponent = __decorate([

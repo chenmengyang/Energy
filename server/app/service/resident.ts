@@ -11,6 +11,15 @@ export class ResidentService{
         return this.http.get('/api/residents').map(res => res.json());
     }
 
+    getResidentByAddress() {
+        return this.http.get('/api/residents').map(res => res.json());
+    }
+
+    getResById(rid:string)
+    {
+        return this.http.get(`/api/residents/${rid}`).map(res => res.json());
+    }
+
     addResident(resident) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');

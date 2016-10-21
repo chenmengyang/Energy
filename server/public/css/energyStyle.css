@@ -1,0 +1,119 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+#top-nav{
+  background-color: #5996E5;
+  background-color: transparent;
+}
+
+.panel .panel-default{
+  margin-top: .75rem;
+}
+
+.login-page {
+  width: 360px;
+  padding: 15% 0 0;
+  margin: auto;
+}
+
+/*.nav-tabs > li > a{
+  border: medium none;
+  color: black;
+  background-color: #5996E5;
+}*/
+
+/*.nav-tabs > li > a:active{
+  background-color: #76b852;
+}*/
+
+.nav-tabs > li > a:hover{
+  background-color: #1c97d4 !important;
+    border: medium none;
+    border-radius: 0;
+    color:#fff;
+}
+
+.navbar-brand {
+  padding: 0px; /* firefox bug fix */
+}
+.navbar-brand>img {
+  height: 100%;
+  padding: 5px; /* firefox bug fix */
+  width: auto;
+}
+
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 40px;
+  padding-bottom: 70px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.form label {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+}
+
+.form a {
+  font-family: "Roboto", sans-serif;
+  font-size: 10px;
+  padding-top: 10px;
+  padding-left: 5px;
+}
+
+.form button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  background: #4CAF50;
+  border: 0;
+  color: #FFFFFF;
+  font-size: 14px;
+}
+
+.form button:hover,.form button:active,.form button:focus {
+  background: #43A047;
+}
+
+body {
+  background-color: transparent;
+  /*background: #5996E5;*/
+  font-family: "Roboto", sans-serif;
+}
+
+/*footer {
+  position: relative;
+  margin-top: -150px;
+  height: 150px;
+  clear:both;
+  padding-top:20px;
+} */
+
+.row-footer{
+    background-color: #AfAfAf;
+}
+
+/*table{
+  background-color:#76b852;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #BFB7B7;
+}*/

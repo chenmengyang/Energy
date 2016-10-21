@@ -28,7 +28,24 @@ export class LoginComponent {
     //
     onLoginResult(result){
         this.loginService.setLogin(result.user);
-        this.router.navigate(['/Dash']);
+        let role = this.loginService.getRole();
+        console.log("role is "+role);
+        if(role==="admin")
+        {
+            this.router.navigate(['/Dash-admin']);
+        }
+        else if(role==="janitor")
+        {
+            this.router.navigate(['/Dash-janitor']);
+        }
+        else if(role==="resident")
+        {
+            this.router.navigate(['/Dash-resident']);
+        }
+        else
+        {
+            alert("Unknown privilege user, please contact administrator");
+        }
     }
     //
     onLoginError(error){

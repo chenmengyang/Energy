@@ -5,16 +5,16 @@ let Energy = require('./model/energy.js');
 
 // connect to database
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:12345/energy_dev');
+mongoose.connect('mongodb://localhost:27017/energy_dev');
 
-User.find({}).
+User.find({role:"resident"}).
     exec(
         function(err,users){
             return users;
     }).
     then(kk=>{
         // let energy1 = new Energy({
-        //     date:"10-2016",
+        //     date:"2016-06",
         //     keyword:"heater",
         //     value:Math.round(Math.random()*100)
         // });
@@ -26,22 +26,22 @@ User.find({}).
         // );
         kk.forEach(uu=>{
             let energy1 = new Energy({
-                date:"10-2016",
-                keyword:"heater",
+                period:"2016-06",
+                type:"heater",
                 value:Math.round(Math.random()*100),
-                user:uu._id
+                resident:uu._id
             });
             let energy2 = new Energy({
-                date:"10-2016",
-                keyword:"water",
+                period:"2016-06",
+                type:"water",
                 value:Math.round(Math.random()*100),
-                user:uu._id
+                resident:uu._id
             });
             let energy3 = new Energy({
-                date:"10-2016",
-                keyword:"electricity",
+                period:"2016-06",
+                type:"electricity",
                 value:Math.round(Math.random()*100),
-                user:uu._id
+                resident:uu._id
             });
             energy1.save();
             energy2.save();

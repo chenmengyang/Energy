@@ -42,6 +42,12 @@ System.register(['@angular/core', '@angular/http'], function(exports_1, context_
                 getToken() {
                     return this.token;
                 }
+                getRole() {
+                    return this.user.role;
+                }
+                getResponsibilty() {
+                    return this.user.responsibility;
+                }
                 getUser() {
                     return this.user;
                 }

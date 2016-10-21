@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/platform-browser', '@angular/router', '@angular/http', '@angular/forms', './app.component', './component', './service/login'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/platform-browser', '@angular/router', '@angular/http', '@angular/forms', './app.component', './component', './service/login', 'angular2-highcharts'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/router'
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, platform_browser_1, router_1, http_1, forms_1, app_component_1, component_1, login_1, core_2;
+    var core_1, platform_browser_1, router_1, http_1, forms_1, app_component_1, component_1, login_1, core_2, angular2_highcharts_1;
     var routing, AppModule;
     return {
         setters:[
@@ -38,31 +38,32 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/router'
             },
             function (login_1_1) {
                 login_1 = login_1_1;
+            },
+            function (angular2_highcharts_1_1) {
+                angular2_highcharts_1 = angular2_highcharts_1_1;
             }],
         execute: function() {
             core_2.enableProdMode();
             routing = router_1.RouterModule.forRoot([
                 { path: '', component: component_1.LoginComponent },
-                // {path: 'Dashboards', component: HomeComponent,children:[
-                //     {path:'',component:HomeComponent},
-                //     {path:'Summary',component:DashSummaryComponent},
-                //     {path:'Alert',component:DashAlertComponent},
-                //     {path:'Mango',component:DashMangoComponent}
-                // ]},
-                { path: 'Dash', component: component_1.DashComponent, children: [
+                { path: 'Dash-admin', component: component_1.DashComponent, children: [
                         { path: '', component: component_1.DashComponent },
                         { path: 'Address', component: component_1.AddressComponent },
                         { path: 'Janitor', component: component_1.JanitorComponent },
                         { path: 'Resident', component: component_1.ResidentComponent }
                     ] },
+                { path: 'Dash-janitor', component: component_1.DashJComponent, children: [
+                        { path: '', component: component_1.DashJComponent },
+                        { path: 'Submission', component: component_1.JSubmitComponent },
+                        { path: 'Check', component: component_1.JCheckComponent },
+                    ] },
+                { path: 'Dash-resident', component: component_1.DashRComponent, children: [
+                        { path: '', component: component_1.DashRComponent },
+                        { path: 'Analyse', component: component_1.RAnalyseComponent },
+                        { path: 'History', component: null },
+                    ] },
                 { path: 'History', component: component_1.HistoryComponent },
                 { path: 'Chart', component: component_1.ChartComponent },
-                // {path: 'Profile', component: ProfileComponent,children:[
-                //     {path: '', component: ProfileDetailComponent},
-                //     {path: 'Detail', component: ProfileDetailComponent},
-                //     {path: 'Usage', component: ProfileUsageComponent},
-                // ]},
-                //
                 { path: 'Help', component: component_1.HelpComponent }
             ]);
             let AppModule = class AppModule {
@@ -70,19 +71,25 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/router'
             AppModule = __decorate([
                 core_1.NgModule({
                     imports: [platform_browser_1.BrowserModule,
+                        angular2_highcharts_1.ChartModule,
                         routing,
                         http_1.HttpModule,
                         forms_1.FormsModule,
                         forms_1.ReactiveFormsModule],
                     declarations: [app_component_1.AppComponent,
                         component_1.DashComponent,
+                        component_1.DashJComponent,
+                        component_1.DashRComponent,
                         component_1.HistoryComponent,
                         component_1.ChartComponent,
                         component_1.HelpComponent,
                         component_1.LoginComponent,
                         component_1.AddressComponent,
                         component_1.JanitorComponent,
-                        component_1.ResidentComponent],
+                        component_1.ResidentComponent,
+                        component_1.JSubmitComponent,
+                        component_1.JCheckComponent,
+                        component_1.RAnalyseComponent],
                     providers: [login_1.LoginService],
                     bootstrap: [app_component_1.AppComponent]
                 }), 

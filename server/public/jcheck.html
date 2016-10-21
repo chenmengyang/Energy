@@ -1,0 +1,36 @@
+<form class="form-inline" [formGroup]="searchForm" (ngSubmit)="search()" style="text-align:center;margin-top:18px">
+    <div class="form-group">
+        <select id="resident_selection" class="form-control" formControlName="resident">
+            <option value="" selected disabled>Residents</option>
+            <option *ngFor="let t of residents" [value]="t._id">{{t.account}}</option>
+        </select>
+    </div>
+    <button class="btn btn-sm btn-primary" type="submit" [disabled]="!searchForm.valid"><i class="fa fa-floppy-o"></i> Search</button>
+</form>
+
+<div class="panel panel-default" style="margin-top:18px">
+  <div class="panel-heading">
+    <h5 class="card-header">{{Energys.length}} records</h5>
+  </div>
+	<div class="panel-body">
+		<table class="table table-bordered table-condensed table-hover">
+			<thead class="thead-default">
+				<tr>
+                    <th>period</th>
+					<th>resident</th>
+					<th>type</th>
+					<th>value</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr *ngFor="let ee of Energys">
+                    <td>{{ee.period}}</td>
+					<td>{{ee.resident.account}}</td>
+					<td>{{ee.type}}</td>
+					<td>{{ee.value}}</td>
+				</tr>	
+			</tbody>
+		</table>
+	</div>
+</div>

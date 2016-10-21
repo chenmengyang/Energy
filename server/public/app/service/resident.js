@@ -28,6 +28,12 @@ System.register(['@angular/core', '@angular/http'], function(exports_1, context_
                 getResidents() {
                     return this.http.get('/api/residents').map(res => res.json());
                 }
+                getResidentByAddress() {
+                    return this.http.get('/api/residents').map(res => res.json());
+                }
+                getResById(rid) {
+                    return this.http.get(`/api/residents/${rid}`).map(res => res.json());
+                }
                 addResident(resident) {
                     let headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');

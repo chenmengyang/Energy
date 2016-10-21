@@ -8,6 +8,6 @@ import {Router} from '@angular/router';
 export class DashComponent {
     constructor(private router:Router)
     {
-        this.router.navigate(['/Dash/Address']);
+        this.router.navigate(['/Dash-admin/Address']);
     }
 }
