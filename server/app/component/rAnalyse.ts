@@ -10,7 +10,13 @@ import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 declare var $:any;
 @Component({
     templateUrl: "ranalyse.html",
-    providers:[AddressService,ResidentService,EnergyService]
+    providers:[AddressService,ResidentService,EnergyService],
+    styles: [`
+      chart {
+        display: block;
+      }
+    `
+    ]
 })
 export class RAnalyseComponent {
 
@@ -34,15 +40,15 @@ export class RAnalyseComponent {
                     data.forEach(e=>{
                         if(e.type==="water")
                         {
-                            this.water_arr.push([e.period,e.value]);
+                            this.water_arr.push([Date.UTC(e.period.substr(0,4),e.period.substr(5,7)),e.value]);
                         }
                         else if(e.type==="electricity")
                         {
-                            this.electricity_arr.push([e.period,e.value]);
+                            this.electricity_arr.push([Date.UTC(e.period.substr(0,4),e.period.substr(5,7)),e.value]);
                         }
                         else if(e.type==="heater")
                         {
-                            this.heater_arr.push([e.period,e.value]);
+                            this.heater_arr.push([Date.UTC(e.period.substr(0,4),e.period.substr(5,7)),e.value]);
                         }
                         else
                         {
@@ -55,7 +61,8 @@ export class RAnalyseComponent {
                                             title : { text : 'Water usage demo' },
                                             series: [{
                                                 data: this.water_arr,
-                                            }]
+                                            }],
+                                            xAxis: {type: 'datetime'}
                                         };
                     this.options_heater = {
                                             credits: {enabled: false},
@@ -63,7 +70,8 @@ export class RAnalyseComponent {
                                             title : { text : 'heater usage demo' },
                                             series: [{
                                                 data: this.heater_arr,
-                                            }]
+                                            }],
+                                            xAxis: {type: 'datetime'}
                                         };
                     this.options_electricity = {
                                             credits: {enabled: false},
@@ -71,7 +79,8 @@ export class RAnalyseComponent {
                                             title : { text : 'electricty usage demo' },
                                             series: [{
                                                 data: this.electricity_arr,
-                                            }]
+                                            }],
+                                            xAxis: {type: 'datetime'}
                                         };
                 },
                 err=>console.log(err)

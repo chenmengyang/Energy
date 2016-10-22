@@ -44,13 +44,13 @@ System.register(['@angular/core', '../service/address', '../service/resident', '
                         .subscribe(data => {
                         data.forEach(e => {
                             if (e.type === "water") {
-                                this.water_arr.push([e.period, e.value]);
+                                this.water_arr.push([Date.UTC(e.period.substr(0, 4), e.period.substr(5, 7)), e.value]);
                             }
                             else if (e.type === "electricity") {
-                                this.electricity_arr.push([e.period, e.value]);
+                                this.electricity_arr.push([Date.UTC(e.period.substr(0, 4), e.period.substr(5, 7)), e.value]);
                             }
                             else if (e.type === "heater") {
-                                this.heater_arr.push([e.period, e.value]);
+                                this.heater_arr.push([Date.UTC(e.period.substr(0, 4), e.period.substr(5, 7)), e.value]);
                             }
                             else {
                                 console.log("unknow record type");
@@ -62,7 +62,8 @@ System.register(['@angular/core', '../service/address', '../service/resident', '
                             title: { text: 'Water usage demo' },
                             series: [{
                                     data: this.water_arr,
-                                }]
+                                }],
+                            xAxis: { type: 'datetime' }
                         };
                         this.options_heater = {
                             credits: { enabled: false },
@@ -70,7 +71,8 @@ System.register(['@angular/core', '../service/address', '../service/resident', '
                             title: { text: 'heater usage demo' },
                             series: [{
                                     data: this.heater_arr,
-                                }]
+                                }],
+                            xAxis: { type: 'datetime' }
                         };
                         this.options_electricity = {
                             credits: { enabled: false },
@@ -78,7 +80,8 @@ System.register(['@angular/core', '../service/address', '../service/resident', '
                             title: { text: 'electricty usage demo' },
                             series: [{
                                     data: this.electricity_arr,
-                                }]
+                                }],
+                            xAxis: { type: 'datetime' }
                         };
                     }, err => console.log(err));
                 }
@@ -86,7 +89,13 @@ System.register(['@angular/core', '../service/address', '../service/resident', '
             RAnalyseComponent = __decorate([
                 core_1.Component({
                     templateUrl: "ranalyse.html",
-                    providers: [address_1.AddressService, resident_1.ResidentService, energy_1.EnergyService]
+                    providers: [address_1.AddressService, resident_1.ResidentService, energy_1.EnergyService],
+                    styles: [`
+      chart {
+        display: block;
+      }
+    `
+                    ]
                 }), 
                 __metadata('design:paramtypes', [energy_1.EnergyService, login_1.LoginService])
             ], RAnalyseComponent);
