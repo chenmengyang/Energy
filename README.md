@@ -7,9 +7,10 @@
 
 ## Generate fake data (users and energy usage) into your database
 * Make sure you have successfully install mongodb
-* Make sure you have start the mongodb server on your pc, using localhost and port 12345
+* Make sure you have start the mongodb server on your pc, using localhost and port 27017
 * go to the server folder on command line tool, type this command to :
 ```
+Don't need to do this anymore
 node fakeUser.js
 node fakeEnergy.js
 ```
@@ -19,7 +20,7 @@ node fakeEnergy.js
 ``` 
 node server.js
 ```
-* Open [this link](http://localhost:8080) (localhost:8080) on your browser to see the homepage (Don't use safari)
+* Open [this link](http://localhost:3000) (localhost:3000) on your browser to see the homepage (make sure your safari is the newest version if you are using it as browser)
 
 * APIs
  * 
