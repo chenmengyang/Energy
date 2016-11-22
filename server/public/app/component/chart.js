@@ -18,7 +18,7 @@ System.register(['@angular/core'], function(exports_1, context_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
-            let ChartComponent = class ChartComponent {
+            ChartComponent = class ChartComponent {
             };
             ChartComponent = __decorate([
                 core_1.Component({

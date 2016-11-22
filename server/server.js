@@ -26,6 +26,7 @@ app.use('/libs', express.static('node_modules/zone.js/dist'));
 app.use('/libs', express.static('node_modules/reflect-metadata'));
 app.use('/libs', express.static('node_modules/angular2-highcharts'));
 app.use('/libs', express.static('node_modules/angular2-highcharts/node_modules/highcharts'));
+app.use('/@maps', express.static('node_modules/angular2-google-maps/core'));
 
 // get the 
 app.get('/', function(req, res){

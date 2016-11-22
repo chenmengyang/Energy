@@ -5,10 +5,10 @@ System.register([], function(exports_1, context_1) {
     return {
         setters:[],
         execute: function() {
-            class Address {
+            Address = class Address {
                 constructor() {
                 }
-            }
+            };
             exports_1("Address", Address);
         }
     }

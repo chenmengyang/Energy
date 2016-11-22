@@ -8,6 +8,6 @@ import {Router} from '@angular/router';
 export class DashJComponent {
     constructor(private router:Router)
     {
-        this.router.navigate(['/Dash-janitor/Submission']);
+        this.router.navigate(['/Dash-janitor/Map']);
     }
 }

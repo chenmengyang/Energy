@@ -27,7 +27,7 @@ System.register(['@angular/core', '../service/resident', '../service/address', '
                 forms_1 = forms_1_1;
             }],
         execute: function() {
-            let ResidentComponent = class ResidentComponent {
+            ResidentComponent = class ResidentComponent {
                 constructor(residentService, addressService, formBuilder) {
                     this.residentService = residentService;
                     this.addressService = addressService;

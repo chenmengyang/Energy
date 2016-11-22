@@ -30,7 +30,7 @@ System.register(['@angular/core', '../service/address', '../service/resident', '
                 energy_1 = energy_1_1;
             }],
         execute: function() {
-            let RAnalyseComponent = class RAnalyseComponent {
+            RAnalyseComponent = class RAnalyseComponent {
                 constructor(energyService, loginService) {
                     this.energyService = energyService;
                     this.loginService = loginService;
@@ -89,6 +89,7 @@ System.register(['@angular/core', '../service/address', '../service/resident', '
             RAnalyseComponent = __decorate([
                 core_1.Component({
                     templateUrl: "ranalyse.html",
+                    // directives: [CHART_DIRECTIVES],
                     providers: [address_1.AddressService, resident_1.ResidentService, energy_1.EnergyService],
                     styles: [`
       chart {

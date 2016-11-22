@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, HTTP_PROVIDERS, Headers} from '@angular/http';
+import {Http, Response, Headers} from '@angular/http';
 import {User} from '../model';
 @Injectable()
 export class LoginService{

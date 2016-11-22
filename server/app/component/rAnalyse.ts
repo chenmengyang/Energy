@@ -6,10 +6,12 @@ import {ResidentService} from '../service/resident';
 import {LoginService} from '../service/login';
 import {EnergyService} from '../service/energy';
 import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
+// import {CHART_DIRECTIVES} from 'angular2-highcharts'; 
 
 declare var $:any;
 @Component({
     templateUrl: "ranalyse.html",
+    // directives: [CHART_DIRECTIVES],
     providers:[AddressService,ResidentService,EnergyService],
     styles: [`
       chart {
@@ -23,9 +25,9 @@ export class RAnalyseComponent {
     private water_arr = [];
     private heater_arr = [];
     private electricity_arr = [];
-    private options_water:HighchartsOptions;
-    private options_heater:HighchartsOptions;
-    private options_electricity:HighchartsOptions;
+    private options_water:any;
+    private options_heater:any;
+    private options_electricity:any;
     constructor(private energyService:EnergyService,
                 private loginService:LoginService)
     {

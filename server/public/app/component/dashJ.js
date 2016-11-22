@@ -21,10 +21,10 @@ System.register(['@angular/core', '@angular/router'], function(exports_1, contex
                 router_1 = router_1_1;
             }],
         execute: function() {
-            let DashJComponent = class DashJComponent {
+            DashJComponent = class DashJComponent {
                 constructor(router) {
                     this.router = router;
-                    this.router.navigate(['/Dash-janitor/Submission']);
+                    this.router.navigate(['/Dash-janitor/Map']);
                 }
             };
             DashJComponent = __decorate([

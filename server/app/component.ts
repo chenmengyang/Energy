@@ -11,3 +11,4 @@ export * from './component/jSubmit';
 export * from './component/jCheck';
 export * from './component/dashR';
 export * from './component/rAnalyse';
+export * from './component/jMap';

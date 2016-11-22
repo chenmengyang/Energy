@@ -5,7 +5,8 @@
     '@angular/forms': '/@angular/forms/bundles/forms.umd.js',
     'rxjs':                       'libs',//'node_modules/rxjs'
     'angular2-highcharts':'libs',
-    'highcharts':'libs'
+    'highcharts':'libs',
+    'angular2-google-maps/core':'@maps/core.umd.js'
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {

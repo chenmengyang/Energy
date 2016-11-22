@@ -33,7 +33,7 @@ System.register(['@angular/core', '../service/address', '../service/resident', '
                 forms_1 = forms_1_1;
             }],
         execute: function() {
-            let JCheckComponent = class JCheckComponent {
+            JCheckComponent = class JCheckComponent {
                 constructor(residentService, energyService, addressService, loginService, formBuilder) {
                     this.residentService = residentService;
                     this.energyService = energyService;
@@ -41,7 +41,6 @@ System.register(['@angular/core', '../service/address', '../service/resident', '
                     this.loginService = loginService;
                     this.formBuilder = formBuilder;
                     this.residents = [];
-                    // private types = ['water','heater','electricity'];
                     this.Energys = [];
                     this.isLoading = true;
                     this.isEditing = false;

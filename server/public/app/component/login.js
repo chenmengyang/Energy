@@ -27,7 +27,7 @@ System.register(['@angular/core', '../model', '../service/login', '@angular/rout
                 router_1 = router_1_1;
             }],
         execute: function() {
-            let LoginComponent = class LoginComponent {
+            LoginComponent = class LoginComponent {
                 constructor(loginService, router) {
                     this.loginService = loginService;
                     this.router = router;

@@ -27,7 +27,7 @@ System.register(['@angular/core', '../service/address', '../service/janitor', '@
                 forms_1 = forms_1_1;
             }],
         execute: function() {
-            let JanitorComponent = class JanitorComponent {
+            JanitorComponent = class JanitorComponent {
                 constructor(janitorService, addressService, formBuilder) {
                     this.janitorService = janitorService;
                     this.addressService = addressService;

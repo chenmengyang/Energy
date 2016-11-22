@@ -21,7 +21,7 @@ System.register(['@angular/core', './service/login'], function(exports_1, contex
                 login_1 = login_1_1;
             }],
         execute: function() {
-            let AppComponent = class AppComponent {
+            AppComponent = class AppComponent {
                 constructor(_loginService) {
                     this._loginService = _loginService;
                     this.title = "Energy-Demo";

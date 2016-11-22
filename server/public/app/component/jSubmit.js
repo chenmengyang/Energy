@@ -33,7 +33,7 @@ System.register(['@angular/core', '../service/address', '../service/resident', '
                 forms_1 = forms_1_1;
             }],
         execute: function() {
-            let JSubmitComponent = class JSubmitComponent {
+            JSubmitComponent = class JSubmitComponent {
                 constructor(residentService, energyService, addressService, formBuilder, loginService) {
                     this.residentService = residentService;
                     this.energyService = energyService;

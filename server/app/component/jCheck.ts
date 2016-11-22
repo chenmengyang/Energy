@@ -14,7 +14,6 @@ declare var $:any;
 })
 export class JCheckComponent {
     private residents:any = [];
-    // private types = ['water','heater','electricity'];
     private Energys:any = [];
 
     private isLoading = true;

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, HTTP_PROVIDERS, Headers, RequestOptions} from '@angular/http';
+import {Http, Response, Headers, RequestOptions} from '@angular/http';
 
 @Injectable()
 export class ResidentService{

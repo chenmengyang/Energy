@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/http'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/http', 'rxjs/add/operator/map'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -19,14 +19,33 @@ System.register(['@angular/core', '@angular/http'], function(exports_1, context_
             },
             function (http_1_1) {
                 http_1 = http_1_1;
-            }],
+            },
+            function (_1) {}],
         execute: function() {
-            let AddressService = class AddressService {
-                constructor(http) {
+            AddressService = class AddressService {
+                constructor(http, jsonp) {
                     this.http = http;
+                    this.jsonp = jsonp;
                 }
                 getAddresses() {
                     return this.http.get('/api/address').map(res => res.json());
+                }
+                getCoordinator(address) {
+                    let params = new http_1.URLSearchParams();
+                    params.set('address', 'Insinoorinkatu+60,+Tampere,+Finland');
+                    params.set('key', 'AIzaSyB7yy-d44nqqVi0gwt_3XzjH_sbqSGOra8');
+                    params.set('callback', 'JSONP_CALLBACK');
+                    return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + encodeURIComponent(address))
+                        .map(res => res.json())
+                        .map(result => {
+                        if (result.status !== "OK") {
+                            throw new Error("unable to geocode address");
+                        }
+                        let latitude = result.results[0].geometry.location.lat;
+                        let longitude = result.results[0].geometry.location.lng;
+                        return { 'lat': latitude, 'lng': longitude };
+                    });
+                    // .map(res=><string[]> res.json()[1]);
                 }
                 addAddress(addr) {
                     let headers = new http_1.Headers();
@@ -48,7 +67,7 @@ System.register(['@angular/core', '@angular/http'], function(exports_1, context_
             };
             AddressService = __decorate([
                 core_1.Injectable(), 
-                __metadata('design:paramtypes', [http_1.Http])
+                __metadata('design:paramtypes', [http_1.Http, http_1.Jsonp])
             ], AddressService);
             exports_1("AddressService", AddressService);
         }

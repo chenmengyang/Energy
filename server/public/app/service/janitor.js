@@ -21,7 +21,7 @@ System.register(['@angular/core', '@angular/http'], function(exports_1, context_
                 http_1 = http_1_1;
             }],
         execute: function() {
-            let JanitorService = class JanitorService {
+            JanitorService = class JanitorService {
                 constructor(http) {
                     this.http = http;
                 }
