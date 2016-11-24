@@ -9,7 +9,9 @@ var userSchema = new Schema({
     role:String,
     room:String,
     address: String,
-    responsibility:String
+    responsibility:[]
 });
+
+userSchema.index({room: 1, address: 1}, {unique: true});
 
 module.exports = mongoose.model('User',userSchema);

@@ -7,7 +7,7 @@ export class User{
     public role:string;
     public room:string;
     public address:string;
-    public responsibility:string;
+    public responsibility:any;
     // public isNew:Boolean;
     constructor(){}
 }

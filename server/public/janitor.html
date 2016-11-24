@@ -1,13 +1,3 @@
-
-<!--<select id="example-getting-started" multiple="multiple">
-    <option value="cheese">Cheese</option>
-    <option value="tomatoes">Tomatoes</option>
-    <option value="mozarella">Mozzarella</option>
-    <option value="mushrooms">Mushrooms</option>
-    <option value="pepperoni">Pepperoni</option>
-    <option value="onions">Onions</option>
-</select>-->
-
 <div class="panel panel-default">
   <div class="panel-heading">
     <h5 class="card-header">Current Janitors ({{Janitors.length}})</h5>
@@ -20,56 +10,76 @@
 					<th>Password</th>
 					<th>Email</th>
 					<th>Phone</th>
-					<th>Responsibility</th>
+					<!--<th>Responsibility</th>-->
                     <th>Actions</th>
 				</tr>
 			</thead>
 			<tbody *ngIf="Janitors.length === 0">
 				<tr style="background-color:grey">
-					<td colspan="6">There are no janitors in the DB.</td>
+					<td colspan="5">There are no janitors in the DB.</td>
 				</tr>
 			</tbody>
 			<tbody *ngIf="!isEditing">
-				<tr *ngFor="let janitor of Janitors">
+				<tr *ngFor="let janitor of Janitors|paginate: { itemsPerPage: 7, currentPage: p }">
 					<td>{{janitor.account}}</td>
 					<td>{{janitor.password}}</td>
 					<td>{{janitor.email}}</td>
 					<td>{{janitor.phone}}</td>
-					<td>{{janitor.responsibility}}</td>
+					<!--<td>{{janitor.responsibility}}</td>-->
 					<td>
-						<button class="btn btn-sm btn-warning" (click)="enableEditing(janitor)"><i class="fa fa-pencil"></i> Edit</button> <button class="btn btn-sm btn-danger" (click)="submitRemove(janitor)"><i class="fa fa-trash"></i> Delete</button>
+						<button type="button" class="btn btn-info" data-toggle="modal" data-target="#update_responsibility" (click)="open_buildings(janitor._id)">Authority</button>
+							<div id="update_responsibility" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+								<div class="modal-dialog modal-sm" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title">Update Responsibilities</h4>
+										</div>
+										<div class="modal-body">
+											<div class="checkbox" *ngFor="let address of ass">
+												<label><input type="checkbox" [value]="address._id" (click)="edit_responsibility($event)" [(ngModel)]="address.isSelected" >{{address.name}}</label>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+       										<button type="button" class="btn btn-primary" data-dismiss="modal" (click)="save_buildings()">Save changes</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						<button class="btn btn-sm btn-default" (click)="enableEditing(janitor)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+						<button class="btn btn-sm btn-danger" (click)="submitRemove(janitor)"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></button>
 					</td>
-				</tr>	
+				</tr>
+				<tr>
+					<td colspan="5" style="text-align: center;">
+						<pagination-controls (pageChange)="p = $event" #api></pagination-controls>
+					</td>
+				</tr>
 			</tbody>
 
-			<!--<tbody *ngIf="isEditing">
+			<tbody *ngIf="isEditing">
 				<tr>
-					<td colspan="7">
-						<form class="form-inline" #form="ngForm" (ngSubmit)="submitEdit(addr)" style="display:inline">
+					<td colspan="6">
+						<form class="form-inline" #form="ngForm" (ngSubmit)="submitEdit(janitor)" style="display:inline">
 							<div class="form-group">
-								<input class="form-control" type="text" name="name" [(ngModel)]="addr.name" placeholder="Name" required>
+								<input class="form-control" type="text" name="account" [(ngModel)]="janitor.account" placeholder="account" required>
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="text" name="country" [(ngModel)]="addr.country" placeholder="country" required>
+								<input class="form-control" type="text" name="password" [(ngModel)]="janitor.password" placeholder="password" required>
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="text" name="city" [(ngModel)]="addr.city" placeholder="city" required>
+								<input class="form-control" type="email" name="email" [(ngModel)]="janitor.email" placeholder="email" required>
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="text" name="street" [(ngModel)]="addr.street" placeholder="street" required>
-							</div>
-							<div class="form-group">
-								<input class="form-control" type="text" name="building" [(ngModel)]="addr.building" placeholder="building" required>
-							</div>
-							<div class="form-group">
-								<input class="form-control" type="text" name="block" [(ngModel)]="addr.block" placeholder="block" required>
+								<input class="form-control" type="text" name="phone" [(ngModel)]="janitor.phone" placeholder="phone" required>
 							</div>
 							<button class="btn btn-sm btn-primary" type="submit" [disabled]="!form.form.valid"><i class="fa fa-floppy-o"></i> Save</button>
 						</form>
 						<button class="btn btn-sm btn-warning" (click)="cancelEditing()"><i class="fa fa-times"></i> Cancel</button>
 					</td>
 				</tr>
-			</tbody>-->
+			</tbody>
 		</table>
 	</div>
 </div>
@@ -92,15 +102,12 @@
 			<div class="form-group">
 				<input class="form-control" type="text" name="phone" formControlName="phone" placeholder="Phone">
 			</div>
-			<div class="form-group">
-                <!--<select id="responsibility_selection" multiple="multiple" (change)="change($event.target.options)">
-                    <option *ngFor="let addr of ass">{{addr.name}}</option>
-                </select>-->
+			<!--<div class="form-group">
                 <select id="responsibility_selection" class="form-control" formControlName="responsibility">
 					<option value="" selected disabled>Responsibility</option>
                     <option *ngFor="let addr of ass" [value]="addr.name">{{addr.name}}</option>
                 </select>
-			</div>
+			</div>-->
 			<button class="btn btn-primary" type="submit" [disabled]="!addJanitorForm.valid"><i class="fa fa-floppy-o"></i>Add</button>
 		</form>
 	</div>

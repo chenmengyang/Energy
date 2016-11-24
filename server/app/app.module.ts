@@ -8,11 +8,13 @@ import {LoginComponent,DashComponent,HistoryComponent,
         DashRComponent,DashJComponent,JSubmitComponent,
         ChartComponent,HelpComponent,AddressComponent,
         JanitorComponent,ResidentComponent,JCheckComponent,
-        RAnalyseComponent,JMapComponent} from './component'
+        RAnalyseComponent,MapComponent,mapAdminComponent,
+        ManagerComponent,BuildingComponent} from './component'
 import {LoginService} from './service/login';
 import {enableProdMode} from '@angular/core';
 import { ChartModule } from 'angular2-highcharts';
 import { AgmCoreModule } from 'angular2-google-maps/core';
+import {Ng2PaginationModule} from 'ng2-pagination';
 
 enableProdMode();
 
@@ -20,13 +22,15 @@ const routing = RouterModule.forRoot([
         {path: '', component: LoginComponent},
         {path: 'Dash-admin', component: DashComponent,children:[
             {path:'',component:DashComponent},
+            {path:'Map',component:mapAdminComponent},
             {path:'Address',component:AddressComponent},
             {path:'Janitor',component:JanitorComponent},
-            {path:'Resident',component:ResidentComponent}
+            {path:'Managers',component:ManagerComponent},
+            {path:'Residents',component:ResidentComponent}
         ]},
         {path: 'Dash-janitor', component: DashJComponent,children:[
             {path:'',component:DashJComponent},
-            {path:'Map',component:JMapComponent},
+            {path:'Map',component:MapComponent},
             {path:'Submission',component:JSubmitComponent},
             {path:'Check',component:JCheckComponent},
         ]},
@@ -37,7 +41,8 @@ const routing = RouterModule.forRoot([
         ]},
         {path: 'History', component: HistoryComponent},
         {path: 'Chart', component: ChartComponent},
-        {path: 'Help', component: HelpComponent}
+        {path: 'Help', component: HelpComponent},
+        {path: 'Building', component: BuildingComponent}
 ]);
 
 @NgModule({
@@ -48,6 +53,7 @@ const routing = RouterModule.forRoot([
               JsonpModule,
     		  FormsModule,
     		  ReactiveFormsModule,
+              Ng2PaginationModule,
               AgmCoreModule.forRoot({
                 apiKey: 'AIzaSyB7yy-d44nqqVi0gwt_3XzjH_sbqSGOra8'
               })
@@ -62,11 +68,14 @@ const routing = RouterModule.forRoot([
     			   LoginComponent,
                    AddressComponent,
                    JanitorComponent,
+                   ManagerComponent,
                    ResidentComponent,
                    JSubmitComponent,
                    JCheckComponent,
                    RAnalyseComponent,
-                   JMapComponent],
+                   MapComponent,
+                   mapAdminComponent,
+                   BuildingComponent],
     providers: [LoginService],
     bootstrap: [AppComponent]
 })

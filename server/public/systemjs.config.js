@@ -6,14 +6,15 @@
     'rxjs':                       'libs',//'node_modules/rxjs'
     'angular2-highcharts':'libs',
     'highcharts':'libs',
-    'angular2-google-maps/core':'@maps/core.umd.js'
+    'angular2-google-maps/core':'@maps/core.umd.js',
+    'ng2-pagination':'/@pagination'
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
     'app':                        { main: 'boot.js',  defaultExtension: 'js' },
     'rxjs':                       { defaultExtension: 'js' },
-    'angular2-highcharts':        {main: 'index',defaultExtension: 'js'}
-
+    'angular2-highcharts':        {main: 'index',defaultExtension: 'js'},
+    'ng2-pagination':             { main: 'ng2-pagination.js', defaultExtension: 'js' }
   };
   var ngPackageNames = [
     'common',

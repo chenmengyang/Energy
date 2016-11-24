@@ -1,0 +1,113 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h5 class="card-header">Current Managers ({{Managers.length}})</h5>
+  </div>
+	<div class="panel-body">
+		<table class="table table-bordered table-condensed table-hover">
+			<thead class="thead-default">
+				<tr>
+					<th>Account</th>
+					<th>Password</th>
+					<th>Email</th>
+					<th>Phone</th>
+					<!--<th>Responsibility</th>-->
+                    <th>Actions</th>
+				</tr>
+			</thead>
+			<tbody *ngIf="Managers.length === 0">
+				<tr style="background-color:grey">
+					<td colspan="5">There are no managers in the DB.</td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="!isEditing">
+				<tr *ngFor="let manager of Managers|paginate: { itemsPerPage: 7, currentPage: p }">
+					<td>{{manager.account}}</td>
+					<td>{{manager.password}}</td>
+					<td>{{manager.email}}</td>
+					<td>{{manager.phone}}</td>
+					<td>
+						<button type="button" class="btn btn-info" data-toggle="modal" data-target="#update_responsibility" (click)="open_buildings(manager._id)">Authority</button>
+							<div id="update_responsibility" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+								<div class="modal-dialog modal-sm" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title">Update Responsibilities</h4>
+										</div>
+										<div class="modal-body">
+											<div class="checkbox" *ngFor="let address of ass">
+												<label><input type="checkbox" [value]="address._id" (click)="edit_responsibility($event)" [(ngModel)]="address.isSelected" >{{address.name}}</label>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+       										<button type="button" class="btn btn-primary" data-dismiss="modal" (click)="save_buildings()">Save changes</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						<button class="btn btn-sm btn-default" (click)="enableEditing(manager)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+						<button class="btn btn-sm btn-danger" (click)="submitRemove(manager)"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></button>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="5" style="text-align: center;">
+						<pagination-controls (pageChange)="p = $event" #api></pagination-controls>
+					</td>
+				</tr>
+			</tbody>
+
+			<tbody *ngIf="isEditing">
+				<tr>
+					<td colspan="6">
+						<form class="form-inline" #form="ngForm" (ngSubmit)="submitEdit(manager)" style="display:inline">
+							<div class="form-group">
+								<input class="form-control" type="text" name="account" [(ngModel)]="manager.account" placeholder="account" required>
+							</div>
+							<div class="form-group">
+								<input class="form-control" type="text" name="password" [(ngModel)]="manager.password" placeholder="password" required>
+							</div>
+							<div class="form-group">
+								<input class="form-control" type="email" name="email" [(ngModel)]="manager.email" placeholder="email" required>
+							</div>
+							<div class="form-group">
+								<input class="form-control" type="text" name="phone" [(ngModel)]="manager.phone" placeholder="phone" required>
+							</div>
+							<button class="btn btn-sm btn-primary" type="submit" [disabled]="!form.form.valid"><i class="fa fa-floppy-o"></i> Save</button>
+						</form>
+						<button class="btn btn-sm btn-warning" (click)="cancelEditing()"><i class="fa fa-times"></i> Cancel</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="panel panel-default" *ngIf="!isEditing">
+	<div class="panel-heading">
+		<h5 class="card-header">Add new manager</h5>
+	</div>
+	<div class="panel-body">
+		<form class="form-inline" [formGroup]="addManagerForm" (ngSubmit)="submitAdd()" style="text-align:center">
+			<div class="form-group">
+			    <input class="form-control" type="text" name="account" formControlName="account" placeholder="Account">
+			</div>
+			<div class="form-group">
+				<input class="form-control" type="text" name="password" formControlName="password" placeholder="Password">
+			</div>
+			<div class="form-group">
+				<input class="form-control" type="text" name="email" formControlName="email" placeholder="Email">
+			</div>
+			<div class="form-group">
+				<input class="form-control" type="text" name="phone" formControlName="phone" placeholder="Phone">
+			</div>
+			<!--<div class="form-group">
+                <select id="responsibility_selection" class="form-control" formControlName="responsibility">
+					<option value="" selected disabled>Responsibility</option>
+                    <option *ngFor="let addr of ass" [value]="addr.name">{{addr.name}}</option>
+                </select>
+			</div>-->
+			<button class="btn btn-primary" type="submit" [disabled]="!addManagerForm.valid"><i class="fa fa-floppy-o"></i>Add</button>
+		</form>
+	</div>
+</div>

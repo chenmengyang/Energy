@@ -21,7 +21,7 @@
 				</tr>
 			</tbody>
 			<tbody *ngIf="!isEditing">
-				<tr *ngFor="let addr of Addresses">
+				<tr *ngFor="let addr of Addresses|paginate: { itemsPerPage: 7, currentPage: p }">
 					<td>{{addr.name}}</td>
 					<td>{{addr.country}}</td>
 					<td>{{addr.city}}</td>
@@ -29,9 +29,15 @@
 					<td>{{addr.building}}</td>
 					<td>{{addr.block}}</td>
 					<td>
-						<button class="btn btn-sm btn-warning" (click)="enableEditing(addr)"><i class="fa fa-pencil"></i> Edit</button> <button class="btn btn-sm btn-danger" (click)="submitRemove(addr)"><i class="fa fa-trash"></i> Delete</button>
+						<button class="btn btn-sm btn-default" (click)="enableEditing(addr)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+						<button class="btn btn-sm btn-danger" (click)="submitRemove(addr)"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></button>
 					</td>
-				</tr>	
+				</tr>
+				<tr>
+					<td colspan="7" style="text-align: center;">
+						<pagination-controls (pageChange)="p = $event" #api></pagination-controls>
+					</td>
+				</tr>
 			</tbody>
 
 			<tbody *ngIf="isEditing">
@@ -84,10 +90,10 @@
 			    <input class="form-control" type="text" name="name" formControlName="name" placeholder="Name">
 			</div>
 			<div class="form-group">
-				<input class="form-control" type="text" name="country" formControlName="country" placeholder="Country">
+				<input class="form-control" style="width:80px" type="text" name="country" formControlName="country" placeholder="Country">
 			</div>
 			<div class="form-group">
-				<input class="form-control" type="text" name="city" formControlName="city" placeholder="City">
+				<input class="form-control" style="width:80px" type="text" name="city" formControlName="city" placeholder="City">
 			</div>
 			<div class="form-group">
 				<input class="form-control" type="text" name="street" formControlName="street" placeholder="Street">
@@ -96,7 +102,7 @@
 				<input class="form-control" type="text" name="building" formControlName="building" placeholder="Building">
 			</div>
 			<div class="form-group">
-				<input class="form-control" type="text" name="block" formControlName="block" placeholder="Block">
+				<input class="form-control" style="width:50px" type="text" name="block" formControlName="block" placeholder="Block">
 			</div>
 			<button class="btn btn-primary" type="submit" [disabled]="!addAddressForm.valid"><i class="fa fa-floppy-o"></i>Add</button>
 		</form>

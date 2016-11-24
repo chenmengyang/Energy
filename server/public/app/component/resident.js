@@ -38,7 +38,7 @@ System.register(['@angular/core', '../service/resident', '../service/address', '
                     this.isLoading = true;
                     this.isEditing = false;
                     this.account = new forms_1.FormControl("", forms_1.Validators.required);
-                    this.password = new forms_1.FormControl("", forms_1.Validators.required);
+                    // private password = new FormControl("", Validators.required);
                     this.email = new forms_1.FormControl("", forms_1.Validators.required);
                     this.phone = new forms_1.FormControl("", forms_1.Validators.required);
                     this.address = new forms_1.FormControl("", forms_1.Validators.required);
@@ -48,7 +48,7 @@ System.register(['@angular/core', '../service/resident', '../service/address', '
                     this.loadResidents();
                     this.addResidentForm = this.formBuilder.group({
                         account: this.account,
-                        password: this.password,
+                        // password: this.password,
                         email: this.email,
                         phone: this.phone,
                         address: this.address,

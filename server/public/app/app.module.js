@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/platform-browser', '@angular/router', '@angular/http', '@angular/forms', './app.component', './component', './service/login', 'angular2-highcharts', 'angular2-google-maps/core'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/platform-browser', '@angular/router', '@angular/http', '@angular/forms', './app.component', './component', './service/login', 'angular2-highcharts', 'angular2-google-maps/core', 'ng2-pagination'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/router'
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, platform_browser_1, router_1, http_1, forms_1, app_component_1, component_1, login_1, core_2, angular2_highcharts_1, core_3;
+    var core_1, platform_browser_1, router_1, http_1, forms_1, app_component_1, component_1, login_1, core_2, angular2_highcharts_1, core_3, ng2_pagination_1;
     var routing, AppModule;
     return {
         setters:[
@@ -44,6 +44,9 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/router'
             },
             function (core_3_1) {
                 core_3 = core_3_1;
+            },
+            function (ng2_pagination_1_1) {
+                ng2_pagination_1 = ng2_pagination_1_1;
             }],
         execute: function() {
             core_2.enableProdMode();
@@ -51,13 +54,15 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/router'
                 { path: '', component: component_1.LoginComponent },
                 { path: 'Dash-admin', component: component_1.DashComponent, children: [
                         { path: '', component: component_1.DashComponent },
+                        { path: 'Map', component: component_1.mapAdminComponent },
                         { path: 'Address', component: component_1.AddressComponent },
                         { path: 'Janitor', component: component_1.JanitorComponent },
-                        { path: 'Resident', component: component_1.ResidentComponent }
+                        { path: 'Managers', component: component_1.ManagerComponent },
+                        { path: 'Residents', component: component_1.ResidentComponent }
                     ] },
                 { path: 'Dash-janitor', component: component_1.DashJComponent, children: [
                         { path: '', component: component_1.DashJComponent },
-                        { path: 'Map', component: component_1.JMapComponent },
+                        { path: 'Map', component: component_1.MapComponent },
                         { path: 'Submission', component: component_1.JSubmitComponent },
                         { path: 'Check', component: component_1.JCheckComponent },
                     ] },
@@ -68,7 +73,8 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/router'
                     ] },
                 { path: 'History', component: component_1.HistoryComponent },
                 { path: 'Chart', component: component_1.ChartComponent },
-                { path: 'Help', component: component_1.HelpComponent }
+                { path: 'Help', component: component_1.HelpComponent },
+                { path: 'Building', component: component_1.BuildingComponent }
             ]);
             AppModule = class AppModule {
             };
@@ -81,6 +87,7 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/router'
                         http_1.JsonpModule,
                         forms_1.FormsModule,
                         forms_1.ReactiveFormsModule,
+                        ng2_pagination_1.Ng2PaginationModule,
                         core_3.AgmCoreModule.forRoot({
                             apiKey: 'AIzaSyB7yy-d44nqqVi0gwt_3XzjH_sbqSGOra8'
                         })
@@ -95,11 +102,14 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/router'
                         component_1.LoginComponent,
                         component_1.AddressComponent,
                         component_1.JanitorComponent,
+                        component_1.ManagerComponent,
                         component_1.ResidentComponent,
                         component_1.JSubmitComponent,
                         component_1.JCheckComponent,
                         component_1.RAnalyseComponent,
-                        component_1.JMapComponent],
+                        component_1.MapComponent,
+                        component_1.mapAdminComponent,
+                        component_1.BuildingComponent],
                     providers: [login_1.LoginService],
                     bootstrap: [app_component_1.AppComponent]
                 }), 

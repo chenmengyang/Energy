@@ -27,6 +27,7 @@ app.use('/libs', express.static('node_modules/reflect-metadata'));
 app.use('/libs', express.static('node_modules/angular2-highcharts'));
 app.use('/libs', express.static('node_modules/angular2-highcharts/node_modules/highcharts'));
 app.use('/@maps', express.static('node_modules/angular2-google-maps/core'));
+app.use('/@pagination', express.static('node_modules/ng2-pagination/dist'));
 
 // get the 
 app.get('/', function(req, res){
@@ -36,14 +37,10 @@ app.get('/', function(req, res){
 app.get('/login', function(req, res){
   User.find({},function(err,users){
       if(err) res.json(err);
-    //   console.log("a:"+users);
-    //   res.send({"data":users});
   })
 });
 
 app.post('/login', function(req, res){
-    // console.log("receiving req: "+JSON.stringify(req.body));
-    // console.log("receiving post account:"+ JSON.stringify(req.account) + " password:" + req.password);
     User.findOne({account:req.body.account,password:req.body.password})
     .exec(function(err,user){
             if (err) res.send(err);
@@ -53,7 +50,6 @@ app.post('/login', function(req, res){
             }
             else
             {
-                // res.json({"login":"failed"});
                 res.status(400).send('Wrong Account/Password')
             }
         })
@@ -108,6 +104,13 @@ app.post('/api/janitors',(req,res)=>{
     });
 });
 
+app.get('/api/janitors/:jid', (req, res)=>{
+    User.find({_id:req.params.jid}, (err,janitor)=>{
+        if (err) res.send(err);
+        res.json(janitor);
+    });
+});
+
 app.put('/api/janitors/:id', (req, res)=>{
     User.findOneAndUpdate({_id:req.params.id}, req.body, (err)=>{
         if (err) return console.error(err);
@@ -115,7 +118,78 @@ app.put('/api/janitors/:id', (req, res)=>{
     });
 });
 
+app.put('/api/janitors/buildings/:id/:buildings?', (req, res)=>{
+    let buildings;
+    if (req.params.buildings)
+    {
+        buildings = (req.params.buildings).replace(/\"/g,'').split(",");
+    }
+    else
+    {
+        buildings = [];
+    }
+    // console.log("buildings:"+buildings + " req.params.id:"+req.params.id);
+    User.findOneAndUpdate({_id:req.params.id}, {responsibility:buildings}, (err)=>{
+        if (err) return console.error(err);
+        res.sendStatus(200);
+    });
+});
+
 app.delete('/api/janitors/:id', (req, res)=>{
+    User.findOneAndRemove({_id:req.params.id}, (err)=>{
+        if (err) return console.error(err);
+        res.sendStatus(200);
+    });
+});
+
+// Manager apis
+app.get('/api/managers',(req,res)=>{
+    User.find({role:"manager"},(err,managers)=>{
+        if (err) res.send(err);
+        res.json(managers);
+    });
+});
+
+app.get('/api/managers/:mid', (req, res)=>{
+    User.find({_id:req.params.mid}, (err,manager)=>{
+        if (err) res.send(err);
+        res.json(manager);
+    });
+});
+
+app.post('/api/managers',(req,res)=>{
+    var obj = new User(req.body);
+    obj.save(function(err, obj) {
+            if(err) return console.error(err);
+            res.status(200).json(obj);
+    });
+});
+
+app.put('/api/managers/:id', (req, res)=>{
+    User.findOneAndUpdate({_id:req.params.id}, req.body, (err)=>{
+        if (err) return console.error(err);
+        res.sendStatus(200);
+    });
+});
+
+app.put('/api/managers/buildings/:id/:buildings?', (req, res)=>{
+    let buildings;
+    if (req.params.buildings)
+    {
+        buildings = (req.params.buildings).replace(/\"/g,'').split(",");
+    }
+    else
+    {
+        buildings = [];
+    }
+    //
+    User.findOneAndUpdate({_id:req.params.id}, {responsibility:buildings}, (err)=>{
+        if (err) return console.error(err);
+        res.sendStatus(200);
+    });
+});
+
+app.delete('/api/managers/:id', (req, res)=>{
     User.findOneAndRemove({_id:req.params.id}, (err)=>{
         if (err) return console.error(err);
         res.sendStatus(200);

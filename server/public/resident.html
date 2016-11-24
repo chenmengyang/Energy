@@ -7,61 +7,64 @@
 			<thead class="thead-default">
 				<tr>
 					<th>Account</th>
-					<th>Password</th>
+					<!--<th>Password</th>-->
 					<th>Email</th>
 					<th>Phone</th>
-					<th>Address</th>
+					<th *ngIf="!isEditing">Address</th>
                     <th>Room</th>
                     <th>Actions</th>
 				</tr>
 			</thead>
 			<tbody *ngIf="Residents.length === 0">
 				<tr style="background-color:grey">
-					<td colspan="7">There are no residents in the DB.</td>
+					<td colspan="6">There are no residents in the DB.</td>
 				</tr>
 			</tbody>
 			<tbody *ngIf="!isEditing">
-				<tr *ngFor="let resident of Residents">
+				<tr *ngFor="let resident of Residents|paginate: { itemsPerPage: 7, currentPage: p }">
 					<td>{{resident.account}}</td>
-					<td>{{resident.password}}</td>
+					<!--<td>{{resident.password}}</td>-->
 					<td>{{resident.email}}</td>
 					<td>{{resident.phone}}</td>
 					<td>{{resident.address}}</td>
                     <td>{{resident.room}}</td>
 					<td>
-						<button class="btn btn-sm btn-warning" (click)="enableEditing(resident)"><i class="fa fa-pencil"></i> Edit</button> <button class="btn btn-sm btn-danger" (click)="submitRemove(resident)"><i class="fa fa-trash"></i> Delete</button>
+						<button class="btn btn-sm btn-default" (click)="enableEditing(resident)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+						<button class="btn btn-sm btn-danger" (click)="submitRemove(resident)"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></button>					
 					</td>
-				</tr>	
+				</tr>
+				<tr>
+					<td colspan="6" style="text-align: center;">
+						<pagination-controls (pageChange)="p = $event" #api></pagination-controls>
+					</td>
+				</tr>
 			</tbody>
 
-			<!--<tbody *ngIf="isEditing">
+			<tbody *ngIf="isEditing">
 				<tr>
-					<td colspan="7">
-						<form class="form-inline" #form="ngForm" (ngSubmit)="submitEdit(addr)" style="display:inline">
+					<td colspan="6">
+						<form class="form-inline" #form="ngForm" (ngSubmit)="submitEdit(resident)" style="display:inline">
 							<div class="form-group">
-								<input class="form-control" type="text" name="name" [(ngModel)]="addr.name" placeholder="Name" required>
+								<input class="form-control" type="text" name="account" [(ngModel)]="resident.account" placeholder="account" required>
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="text" name="country" [(ngModel)]="addr.country" placeholder="country" required>
+								<input class="form-control" type="email" name="email" [(ngModel)]="resident.email" placeholder="email" required>
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="text" name="city" [(ngModel)]="addr.city" placeholder="city" required>
+								<input class="form-control" type="text" name="phone" [(ngModel)]="resident.phone" placeholder="phone" required>
 							</div>
+							<!--<div class="form-group">
+								<input class="form-control" type="text" name="password" [(ngModel)]="resident.address" placeholder="address" required>
+							</div>-->
 							<div class="form-group">
-								<input class="form-control" type="text" name="street" [(ngModel)]="addr.street" placeholder="street" required>
-							</div>
-							<div class="form-group">
-								<input class="form-control" type="text" name="building" [(ngModel)]="addr.building" placeholder="building" required>
-							</div>
-							<div class="form-group">
-								<input class="form-control" type="text" name="block" [(ngModel)]="addr.block" placeholder="block" required>
+								<input class="form-control" type="text" name="room" [(ngModel)]="resident.room" placeholder="room" required>
 							</div>
 							<button class="btn btn-sm btn-primary" type="submit" [disabled]="!form.form.valid"><i class="fa fa-floppy-o"></i> Save</button>
 						</form>
 						<button class="btn btn-sm btn-warning" (click)="cancelEditing()"><i class="fa fa-times"></i> Cancel</button>
 					</td>
 				</tr>
-			</tbody>-->
+			</tbody>
 		</table>
 	</div>
 </div>
@@ -75,9 +78,9 @@
 			<div class="form-group">
 			    <input class="form-control" type="text" name="account" formControlName="account" placeholder="Account">
 			</div>
-			<div class="form-group">
+			<!--<div class="form-group">
 				<input class="form-control" type="text" name="password" formControlName="password" placeholder="Password">
-			</div>
+			</div>-->
 			<div class="form-group">
 				<input class="form-control" type="text" name="email" formControlName="email" placeholder="Email">
 			</div>
@@ -89,7 +92,6 @@
                     <option value="" selected disabled>Address</option>
                     <option *ngFor="let addr of ass" [value]="addr.name">{{addr.name}}</option>
                 </select>
-				<!--<input class="form-control" type="text" name="address" formControlName="address" placeholder="address">-->
 			</div>
 			<div class="form-group">
 				<input class="form-control" type="text" name="room" formControlName="room" placeholder="room">

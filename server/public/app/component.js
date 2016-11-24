@@ -1,4 +1,4 @@
-System.register(['./component/login', './component/dash', './component/history', './component/chart', './component/help', './component/address', './component/janitor', './component/resident', './component/dashJ', './component/jSubmit', './component/jCheck', './component/dashR', './component/rAnalyse', './component/jMap'], function(exports_1, context_1) {
+System.register(['./component/login', './component/dash', './component/history', './component/chart', './component/help', './component/address', './component/janitor', './component/manager', './component/resident', './component/dashJ', './component/jSubmit', './component/jCheck', './component/dashR', './component/rAnalyse', './component/Map', './component/mapAdmin', './component/building'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     function exportStar_1(m) {
@@ -31,6 +31,9 @@ System.register(['./component/login', './component/dash', './component/history',
             function (janitor_1_1) {
                 exportStar_1(janitor_1_1);
             },
+            function (manager_1_1) {
+                exportStar_1(manager_1_1);
+            },
             function (resident_1_1) {
                 exportStar_1(resident_1_1);
             },
@@ -49,8 +52,14 @@ System.register(['./component/login', './component/dash', './component/history',
             function (rAnalyse_1_1) {
                 exportStar_1(rAnalyse_1_1);
             },
-            function (jMap_1_1) {
-                exportStar_1(jMap_1_1);
+            function (Map_1_1) {
+                exportStar_1(Map_1_1);
+            },
+            function (mapAdmin_1_1) {
+                exportStar_1(mapAdmin_1_1);
+            },
+            function (building_1_1) {
+                exportStar_1(building_1_1);
             }],
         execute: function() {
         }

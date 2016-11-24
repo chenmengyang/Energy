@@ -28,6 +28,7 @@ System.register(['@angular/core', '../service/address', '../service/janitor', '@
             }],
         execute: function() {
             JanitorComponent = class JanitorComponent {
+                // private responsibility = new FormControl("", Validators.required);
                 constructor(janitorService, addressService, formBuilder) {
                     this.janitorService = janitorService;
                     this.addressService = addressService;
@@ -36,13 +37,13 @@ System.register(['@angular/core', '../service/address', '../service/janitor', '@
                     this.Janitors = [];
                     this.janitor = {};
                     this.selectedOptions = [];
+                    this.buildings = [];
                     this.isLoading = true;
                     this.isEditing = false;
                     this.account = new forms_1.FormControl("", forms_1.Validators.required);
                     this.password = new forms_1.FormControl("", forms_1.Validators.required);
                     this.email = new forms_1.FormControl("", forms_1.Validators.required);
                     this.phone = new forms_1.FormControl("", forms_1.Validators.required);
-                    this.responsibility = new forms_1.FormControl("", forms_1.Validators.required);
                 }
                 ngOnInit() {
                     this.loadJanitors();
@@ -50,8 +51,7 @@ System.register(['@angular/core', '../service/address', '../service/janitor', '@
                         account: this.account,
                         password: this.password,
                         email: this.email,
-                        phone: this.phone,
-                        responsibility: this.responsibility
+                        phone: this.phone
                     });
                 }
                 ngAfterViewInit() {
@@ -60,8 +60,7 @@ System.register(['@angular/core', '../service/address', '../service/janitor', '@
                 loadAss() {
                     return this.addressService.getAddresses().subscribe(data => {
                         this.ass = data;
-                        console.log("len:" + this.ass.length);
-                        // $('#responsibility_selection').multiselect();
+                        console.log("len:" + JSON.stringify(this.ass));
                     }, err => console.log("error loading address!"));
                 }
                 loadJanitors() {
@@ -69,8 +68,10 @@ System.register(['@angular/core', '../service/address', '../service/janitor', '@
                 }
                 submitAdd() {
                     // console.log("asxasfa:" + JSON.stringify(this.addJanitorForm.value.responsibility));
-                    let formValue = this.addJanitorForm.value;
-                    formValue["role"] = "janitor";
+                    // let formValue = this.addJanitorForm.value;
+                    // formValue["role"] = "janitor";
+                    this.addJanitorForm.value["role"] = "janitor";
+                    this.addJanitorForm.value["responsibility"] = [];
                     this.janitorService.addJanitor(this.addJanitorForm.value).subscribe(res => {
                         var newJanitor = res.json();
                         this.Janitors.push(newJanitor);
@@ -99,6 +100,43 @@ System.register(['@angular/core', '../service/address', '../service/janitor', '@
                             this.Janitors.splice(pos, 1);
                         }, error => console.log(error));
                     }
+                }
+                open_buildings(jid) {
+                    this.current_janitorId = jid;
+                    this.buildings = [];
+                    this.ass.forEach(a => {
+                        a["isSelected"] = false;
+                    });
+                    this.janitorService.queryJanitor(jid).subscribe(res => {
+                        this.buildings = res[0].responsibility;
+                        this.buildings.forEach(b => {
+                            let tmp = this.ass.filter(x => { return x._id == b; });
+                            if (tmp) {
+                                tmp[0].isSelected = true;
+                            }
+                        });
+                    }, error => console.log(error));
+                }
+                default_checked(addId) {
+                    return this.buildings.filter(b => { return b == addId; }).length;
+                }
+                edit_responsibility(event) {
+                    let bvalue = JSON.stringify(event.target.value).replace(/\"/g, "");
+                    if (event.target.checked) {
+                        if (this.buildings.filter(x => { return x == bvalue; }).length) {
+                        }
+                        else {
+                            this.buildings.push(bvalue);
+                        }
+                    }
+                    else {
+                        if (this.buildings.filter(x => { return x == bvalue; }).length) {
+                            this.buildings.splice(this.buildings.indexOf(bvalue), 1);
+                        }
+                    }
+                }
+                save_buildings() {
+                    this.janitorService.editBuildings(this.current_janitorId, this.buildings).subscribe(res => (null), error => console.log(error));
                 }
             };
             JanitorComponent = __decorate([

@@ -28,6 +28,9 @@ System.register(['@angular/core', '@angular/http'], function(exports_1, context_
                 getJanitors() {
                     return this.http.get('/api/janitors').map(res => res.json());
                 }
+                queryJanitor(jid) {
+                    return this.http.get(`/api/janitors/${jid}`).map(res => res.json());
+                }
                 addJanitor(janitor) {
                     let headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');
@@ -37,6 +40,12 @@ System.register(['@angular/core', '@angular/http'], function(exports_1, context_
                     let headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');
                     return this.http.put("/api/janitors/" + janitor._id, JSON.stringify(janitor), { headers: headers });
+                }
+                editBuildings(jid, buildings) {
+                    let headers = new http_1.Headers();
+                    headers.append('Content-Type', 'application/json');
+                    console.log("jid:" + jid + " url:" + "/api/janitors/" + jid + "/" + buildings);
+                    return this.http.put("/api/janitors/buildings/" + jid + "/" + buildings, JSON.stringify(buildings), { headers: headers });
                 }
                 deleteJanitor(janitor) {
                     let headers = new http_1.Headers();

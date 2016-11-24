@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/router'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/router', '../service/login'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '@angular/router'], function(exports_1, contex
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1;
+    var core_1, router_1, login_1;
     var DashComponent;
     return {
         setters:[
@@ -19,19 +19,24 @@ System.register(['@angular/core', '@angular/router'], function(exports_1, contex
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+            },
+            function (login_1_1) {
+                login_1 = login_1_1;
             }],
         execute: function() {
             DashComponent = class DashComponent {
-                constructor(router) {
+                constructor(router, loginService) {
                     this.router = router;
-                    this.router.navigate(['/Dash-admin/Address']);
+                    this.loginService = loginService;
+                    this.router.navigate(['/Dash-admin/Map']);
+                    this.user = loginService.getUser();
                 }
             };
             DashComponent = __decorate([
                 core_1.Component({
                     templateUrl: "dashboard.html"
                 }), 
-                __metadata('design:paramtypes', [router_1.Router])
+                __metadata('design:paramtypes', [router_1.Router, login_1.LoginService])
             ], DashComponent);
             exports_1("DashComponent", DashComponent);
         }

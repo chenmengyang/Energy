@@ -18,7 +18,7 @@ export class ResidentComponent {
 
     private addResidentForm: FormGroup;
 	private account = new FormControl("", Validators.required);
-	private password = new FormControl("", Validators.required);
+	// private password = new FormControl("", Validators.required);
 	private email = new FormControl("", Validators.required);
     private phone = new FormControl("", Validators.required);
     private address = new FormControl("", Validators.required);
@@ -27,7 +27,7 @@ export class ResidentComponent {
     constructor(private residentService:ResidentService,
                 private addressService:AddressService,
                 private formBuilder: FormBuilder)
-    {        
+    {
     }
 
     ngOnInit()
@@ -35,7 +35,7 @@ export class ResidentComponent {
         this.loadResidents();
         this.addResidentForm = this.formBuilder.group({
 			account: this.account,
-			password: this.password,
+			// password: this.password,
 			email: this.email,
             phone: this.phone,
             address: this.address,
