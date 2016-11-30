@@ -101,4 +101,11 @@ export class AddressComponent {
             );
         }
     }
+
+    sortBy(field:string)
+    {
+        this.Addresses.sort((x,y)=>{
+            return (x[field]>y[field])?1:-1;
+        })
+    }
 }

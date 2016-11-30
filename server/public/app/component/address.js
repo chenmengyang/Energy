@@ -93,6 +93,11 @@ System.register(['@angular/core', '../service/address', '@angular/forms'], funct
                         }, error => console.log(error));
                     }
                 }
+                sortBy(field) {
+                    this.Addresses.sort((x, y) => {
+                        return (x[field] > y[field]) ? 1 : -1;
+                    });
+                }
             };
             AddressComponent = __decorate([
                 core_1.Component({

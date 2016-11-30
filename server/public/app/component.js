@@ -1,4 +1,4 @@
-System.register(['./component/login', './component/dash', './component/history', './component/chart', './component/help', './component/address', './component/janitor', './component/manager', './component/resident', './component/dashJ', './component/jSubmit', './component/jCheck', './component/dashR', './component/rAnalyse', './component/Map', './component/mapAdmin', './component/building'], function(exports_1, context_1) {
+System.register(['./component/login', './component/dash', './component/history', './component/chart', './component/help', './component/address', './component/janitor', './component/manager', './component/resident', './component/dashJ', './component/jSubmit', './component/jCheck', './component/dashR', './component/rAnalyse', './component/mapAdmin', './component/building', './component/panels/addressList', './component/panels/user', './component/panels/map', './component/panels/data'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     function exportStar_1(m) {
@@ -52,14 +52,23 @@ System.register(['./component/login', './component/dash', './component/history',
             function (rAnalyse_1_1) {
                 exportStar_1(rAnalyse_1_1);
             },
-            function (Map_1_1) {
-                exportStar_1(Map_1_1);
-            },
             function (mapAdmin_1_1) {
                 exportStar_1(mapAdmin_1_1);
             },
             function (building_1_1) {
                 exportStar_1(building_1_1);
+            },
+            function (addressList_1_1) {
+                exportStar_1(addressList_1_1);
+            },
+            function (user_1_1) {
+                exportStar_1(user_1_1);
+            },
+            function (map_1_1) {
+                exportStar_1(map_1_1);
+            },
+            function (data_1_1) {
+                exportStar_1(data_1_1);
             }],
         execute: function() {
         }

@@ -42,8 +42,8 @@ System.register(['@angular/core', '@angular/router'], function(exports_1, contex
                     this.lat = lats.reduce((a, b) => { return (a + b); }) / len;
                     this.lng = lngs.reduce((a, b) => { return (a + b); }) / len;
                 }
-                view_building() {
-                    this.router.navigate(['/Building']);
+                view_building(mid) {
+                    this.router.navigate(['/Building/Data/' + mid]);
                 }
                 ngOnDestroy() {
                     console.log(this.addr);
@@ -51,8 +51,8 @@ System.register(['@angular/core', '@angular/router'], function(exports_1, contex
             };
             MapComponent = __decorate([
                 core_1.Component({
-                    selector: 'map',
-                    templateUrl: 'map.html',
+                    selector: 'map-panel',
+                    templateUrl: './panels/map-panel.html',
                     styles: [
                         `.sebm-google-map-container {
   height: 500px;
@@ -67,4 +67,4 @@ System.register(['@angular/core', '@angular/router'], function(exports_1, contex
         }
     }
 });
-//# sourceMappingURL=map.js.map
+//# sourceMappingURL=Map.js.map

@@ -1,10 +1,9 @@
 import { Component, OnDestroy} from '@angular/core';
 import { Router} from '@angular/router';
 
-
 @Component({
-  selector: 'map',
-  templateUrl: 'map.html',
+  selector: 'map-panel',
+  templateUrl: './panels/map-panel.html',
   styles:[
       `.sebm-google-map-container {
   height: 500px;
@@ -42,9 +41,9 @@ export class MapComponent implements OnDestroy{
 		this.lng = lngs.reduce((a,b)=>{return (a+b)})/len;
 	}
 
-	view_building()
+	view_building(mid:string)
 	{
-		this.router.navigate(['/Building']);
+		this.router.navigate(['/Building/Data/'+mid]);
 	}
 
 	ngOnDestroy()
@@ -55,6 +54,7 @@ export class MapComponent implements OnDestroy{
 
 // just an interface for type safety.
 interface marker {
+	_id: string;
 	lat: number;
 	lng: number;
 	label?: string;

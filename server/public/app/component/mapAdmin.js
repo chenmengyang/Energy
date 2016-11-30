@@ -33,6 +33,7 @@ System.register(['@angular/core', '../service/address'], function(exports_1, con
                             addressService.getCoordinator(addString).subscribe(c => {
                                 let tmp = c;
                                 tmp['draggable'] = false;
+                                tmp['_id'] = addrx._id;
                                 tmp['label'] = addrx.name;
                                 let index = Math.floor(Math.random() * 3);
                                 tmp['icon'] = `/image/mm_20_${this.colors[index]}.png`;
@@ -57,7 +58,7 @@ System.register(['@angular/core', '../service/address'], function(exports_1, con
             mapAdminComponent = __decorate([
                 core_1.Component({
                     template: `
-    <map [markers]="buildings" [lat]="lat" [lng]="lng"> </map>
+    <map-panel [markers]="buildings" [lat]="lat" [lng]="lng"> </map-panel>
     `,
                     providers: [address_1.AddressService],
                 }), 

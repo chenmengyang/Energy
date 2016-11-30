@@ -9,7 +9,8 @@ import {LoginComponent,DashComponent,HistoryComponent,
         ChartComponent,HelpComponent,AddressComponent,
         JanitorComponent,ResidentComponent,JCheckComponent,
         RAnalyseComponent,MapComponent,mapAdminComponent,
-        ManagerComponent,BuildingComponent} from './component'
+        ManagerComponent,BuildingComponent,AddressListComponent,
+        UserPanelComponent,DataPanelComponent} from './component'
 import {LoginService} from './service/login';
 import {enableProdMode} from '@angular/core';
 import { ChartModule } from 'angular2-highcharts';
@@ -42,7 +43,10 @@ const routing = RouterModule.forRoot([
         {path: 'History', component: HistoryComponent},
         {path: 'Chart', component: ChartComponent},
         {path: 'Help', component: HelpComponent},
-        {path: 'Building', component: BuildingComponent}
+        {path: 'Building', component: BuildingComponent,children:[
+            {path:'',component:BuildingComponent},
+            {path:'Data/:id',component:DataPanelComponent}
+        ]}
 ]);
 
 @NgModule({
@@ -75,7 +79,10 @@ const routing = RouterModule.forRoot([
                    RAnalyseComponent,
                    MapComponent,
                    mapAdminComponent,
-                   BuildingComponent],
+                   BuildingComponent,
+                   AddressListComponent,
+                   UserPanelComponent,
+                   DataPanelComponent],
     providers: [LoginService],
     bootstrap: [AppComponent]
 })

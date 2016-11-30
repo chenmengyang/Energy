@@ -74,7 +74,10 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/router'
                 { path: 'History', component: component_1.HistoryComponent },
                 { path: 'Chart', component: component_1.ChartComponent },
                 { path: 'Help', component: component_1.HelpComponent },
-                { path: 'Building', component: component_1.BuildingComponent }
+                { path: 'Building', component: component_1.BuildingComponent, children: [
+                        { path: '', component: component_1.BuildingComponent },
+                        { path: 'Data/:id', component: component_1.DataPanelComponent }
+                    ] }
             ]);
             AppModule = class AppModule {
             };
@@ -109,7 +112,10 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/router'
                         component_1.RAnalyseComponent,
                         component_1.MapComponent,
                         component_1.mapAdminComponent,
-                        component_1.BuildingComponent],
+                        component_1.BuildingComponent,
+                        component_1.AddressListComponent,
+                        component_1.UserPanelComponent,
+                        component_1.DataPanelComponent],
                     providers: [login_1.LoginService],
                     bootstrap: [app_component_1.AppComponent]
                 }), 

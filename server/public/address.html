@@ -6,13 +6,13 @@
 		<table class="table table-bordered table-condensed table-hover">
 			<thead class="thead-default">
 				<tr>
-					<th>Name</th>
-					<th>Country</th>
-					<th>City</th>
-					<th>Street</th>
-					<th>Building</th>
-					<th>Block</th>
-					<th>Actions</th>
+					<th (click)="sortBy('name')">Name</th>
+					<th (click)="sortBy('country')">Country</th>
+					<th (click)="sortBy('city')">City</th>
+					<th (click)="sortBy('street')">Street</th>
+					<th (click)="sortBy('building')">Building</th>
+					<th (click)="sortBy('block')">Block</th>
+					<th (click)="sortBy('name')">Actions</th>
 				</tr>
 			</thead>
 			<tbody *ngIf="Addresses.length === 0">

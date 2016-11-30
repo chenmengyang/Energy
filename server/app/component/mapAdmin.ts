@@ -1,10 +1,10 @@
 import {Component, CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {AddressService} from '../service/address';
-import {MapComponent} from './Map'
+import {MapComponent} from './panels/Map';
 
 @Component({
     template:`
-    <map [markers]="buildings" [lat]="lat" [lng]="lng"> </map>
+    <map-panel [markers]="buildings" [lat]="lat" [lng]="lng"> </map-panel>
     `,
     providers:[AddressService],
     
@@ -29,6 +29,7 @@ export class mapAdminComponent {
                         c=>{
                             let tmp = <marker>c;
                             tmp['draggable'] = false;
+                            tmp['_id'] = addrx._id;
                             tmp['label'] = addrx.name;
                             let index = Math.floor(Math.random()*3);
                             tmp['icon'] = `/image/mm_20_${this.colors[index]}.png`;
@@ -58,6 +59,7 @@ export class mapAdminComponent {
 }
 
 interface marker {
+    _id: string;
 	lat: number;
 	lng: number;
 	label?: string;
