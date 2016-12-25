@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {AddressService} from '../service/address';
-import {ResidentService} from '../service/resident';
 // import {JanitorService} from '../service/janitor';
 import {LoginService} from '../service/login';
 import {EnergyService} from '../service/energy';
@@ -10,10 +9,12 @@ import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 declare var $:any;
 @Component({
     templateUrl: "jsubmit.html",
-    providers:[AddressService,ResidentService,EnergyService]
+    providers:[AddressService,EnergyService]
 })
 export class JSubmitComponent {
-    private residents:any = [];
+    private residents:any[] = [];
+    private buildings:any[] = [];
+
     private types = ['water','heater','electricity'];
     private Energys:any = [];
     private energy:any = {};
@@ -25,12 +26,11 @@ export class JSubmitComponent {
 	private period = new FormControl("", Validators.required);
 	private type = new FormControl("", Validators.required);
 	private value = new FormControl("", Validators.required);
-    private resident = new FormControl("", Validators.required);
+    private building = new FormControl("", Validators.required);
 
     private time = (new Date()).toISOString().substr(0,7);
 
-    constructor(private residentService:ResidentService,
-                private energyService:EnergyService,
+    constructor(private energyService:EnergyService,
                 private addressService:AddressService,
                 private formBuilder: FormBuilder,
                 private loginService:LoginService)
@@ -42,7 +42,7 @@ export class JSubmitComponent {
     {
         this.loadEnergys();
         this.addEnergyForm = this.formBuilder.group({
-			resident: this.resident,
+			building: this.building,
 			period: this.period,
 			type: this.type,
             value: this.value
@@ -55,7 +55,12 @@ export class JSubmitComponent {
             .subscribe(
                 data=>{
                         this.Energys=data;
-                        console.log("data:"+JSON.stringify(data['resident']));
+                        this.Energys.map(x=>{
+                            this.addressService.getAddressById(x['building'])
+                                .subscribe(addr=>{
+                                    x['address'] = addr[0]['name'];
+                                })
+                        });
                       },
                 err=>console.log("error loadEnergys!")
             );
@@ -63,17 +68,18 @@ export class JSubmitComponent {
     
     ngAfterViewInit()
     {
-        this.loadRes();
+        this.loadBuildings();
     }
 
-    loadRes()
+    loadBuildings()
     {
-       this.residentService.getResidentByAddress().subscribe(
-            data=>{
-                    this.residents = data;
-                  },
-            err=>console.log("error loadRes!")
-        );
+        this.loginService.getResponsibilty().forEach(aid=>{
+            this.addressService.getAddressById(aid)
+                .subscribe(addr=>{
+                    this.buildings.push(addr[0]);
+                    // console.log("this.buildings is "+this.buildings);
+                });
+        });
     }
 
     submitAdd()
@@ -83,7 +89,13 @@ export class JSubmitComponent {
         this.energyService.addEnergy(this.addEnergyForm.value).subscribe(
             res=>{
 				var newEnergy = res.json();
-				this.Energys.push(newEnergy);
+                this.addressService.getAddressById(newEnergy["building"])
+                    .subscribe(
+                        x=>{
+                            newEnergy["address"] = x[0]['name'];
+                            this.Energys.push(newEnergy);
+                        }
+                    );
 				this.addEnergyForm.reset();
             },
             err=>console.log(err)

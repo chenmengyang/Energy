@@ -7,7 +7,8 @@ var addressSchema = new Schema({
     city:String,
     street:String,
     building:String,
-    block:String
+    block:String,
+    info:[]
 });
 
 module.exports = mongoose.model('Address',addressSchema,'address');

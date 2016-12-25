@@ -5,9 +5,9 @@ var energySchema = new Schema({
     period: String,
     type: String,
     value: Number,
-    resident: {type: mongoose.Schema.Types.ObjectId, ref:'User'}
+    building: {type: mongoose.Schema.Types.ObjectId, ref:'Address'}
 });
 
-energySchema.index({ period: 1, type: 1, resident:1}, { unique: true });
+energySchema.index({ period: 1, type: 1, building:1}, { unique: true });
 
 module.exports = mongoose.model('Energy',energySchema,'energy');

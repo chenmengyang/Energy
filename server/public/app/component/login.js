@@ -51,8 +51,8 @@ System.register(['@angular/core', '../model', '../service/login', '@angular/rout
                     else if (role === "janitor") {
                         this.router.navigate(['/Dash-janitor']);
                     }
-                    else if (role === "resident") {
-                        this.router.navigate(['/Dash-resident']);
+                    else if (role === "manager") {
+                        this.router.navigate(['/Dash-manager']);
                     }
                     else {
                         alert("Unknown privilege user, please contact administrator");

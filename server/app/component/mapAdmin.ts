@@ -4,7 +4,8 @@ import {MapComponent} from './panels/Map';
 
 @Component({
     template:`
-    <map-panel [markers]="buildings" [lat]="lat" [lng]="lng"> </map-panel>
+    <map-panel> </map-panel>
+    <chart [options]="options"></chart>
     `,
     providers:[AddressService],
     
@@ -17,6 +18,7 @@ export class mapAdminComponent {
     private lng:number;
 
     private colors = ['green','red','yellow'];
+    private options;
 
     constructor(private addressService:AddressService)
     {

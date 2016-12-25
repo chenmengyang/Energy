@@ -4,7 +4,7 @@ export class Energy
     public period:string;
     public type:string;
     public value:string;
-    public resident:string;
+    public building:string;
     constructor()
     {}
 }

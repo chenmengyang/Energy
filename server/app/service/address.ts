@@ -15,6 +15,11 @@ export class AddressService{
         return this.http.get('/api/address').map(res => res.json());
     }
 
+    getAddressById(aid:string)
+    {
+        return this.http.get(`/api/address/${aid}`).map(res => res.json());
+    }
+
     getCoordinator(address:string)
     {
         let params = new URLSearchParams();
@@ -37,6 +42,12 @@ export class AddressService{
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         return this.http.post("/api/address", JSON.stringify(addr), {headers: headers});
+    }
+
+    addAddressInfo(aid,info) {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.put(`/api/address/info/${aid}`, JSON.stringify(info), {headers: headers});
     }
 
     editAddress(addr) {

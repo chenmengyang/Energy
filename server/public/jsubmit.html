@@ -6,7 +6,7 @@
 		<table class="table table-bordered table-condensed table-hover">
 			<thead class="thead-default">
 				<tr>
-					<th>resident</th>
+					<th>building</th>
 					<th>type</th>
 					<th>value</th>
                     <th>Actions</th>
@@ -19,7 +19,7 @@
 			</tbody>
 			<tbody *ngIf="!isEditing">
 				<tr *ngFor="let ee of Energys">
-					<td>{{ee.resident.account}}</td>
+					<td>{{ee.address}}</td>
 					<td>{{ee.type}}</td>
 					<td>{{ee.value}}</td>
 					<td>
@@ -28,34 +28,25 @@
 				</tr>	
 			</tbody>
 
-			<!--<tbody *ngIf="isEditing">
+			<tbody *ngIf="isEditing">
 				<tr>
-					<td colspan="7">
-						<form class="form-inline" #form="ngForm" (ngSubmit)="submitEdit(addr)" style="display:inline">
+					<td colspan="4">
+						<form class="form-inline" #form="ngForm" (ngSubmit)="submitEdit(energy)" style="display:inline">
 							<div class="form-group">
-								<input class="form-control" type="text" name="name" [(ngModel)]="addr.name" placeholder="Name" required>
+								<input class="form-control" type="text" name="building" [value]="energy.address" placeholder="building" readonly>
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="text" name="country" [(ngModel)]="addr.country" placeholder="country" required>
+								<input class="form-control" type="text" name="type" [value]="energy.type" placeholder="type" readonly>
 							</div>
 							<div class="form-group">
-								<input class="form-control" type="text" name="city" [(ngModel)]="addr.city" placeholder="city" required>
-							</div>
-							<div class="form-group">
-								<input class="form-control" type="text" name="street" [(ngModel)]="addr.street" placeholder="street" required>
-							</div>
-							<div class="form-group">
-								<input class="form-control" type="text" name="building" [(ngModel)]="addr.building" placeholder="building" required>
-							</div>
-							<div class="form-group">
-								<input class="form-control" type="text" name="block" [(ngModel)]="addr.block" placeholder="block" required>
+								<input class="form-control" type="text" name="value" [(ngModel)]="energy.value" placeholder="city" required>
 							</div>
 							<button class="btn btn-sm btn-primary" type="submit" [disabled]="!form.form.valid"><i class="fa fa-floppy-o"></i> Save</button>
 						</form>
 						<button class="btn btn-sm btn-warning" (click)="cancelEditing()"><i class="fa fa-times"></i> Cancel</button>
 					</td>
 				</tr>
-			</tbody>-->
+			</tbody>
 		</table>
 	</div>
 </div>
@@ -67,9 +58,9 @@
 	<div class="panel-body">
 		<form class="form-inline" [formGroup]="addEnergyForm" (ngSubmit)="submitAdd()" style="text-align:center">
 			<div class="form-group">
-                <select id="resident_selection" class="form-control" formControlName="resident">
-					<option value="" selected disabled>Residents</option>
-                    <option *ngFor="let resi of residents" [value]="resi._id">{{resi.account}}</option>
+                <select id="building_selection" class="form-control" formControlName="building">
+					<option value="" selected disabled>Buildings</option>
+                    <option *ngFor="let b of buildings" [value]="b._id">{{b.building}}</option>
                 </select>
             </div>
 			<div class="form-group">

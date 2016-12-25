@@ -1,0 +1,18 @@
+<div class="row">
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a routerLink="/Dash-manager/Map">Addresses</a></li>
+        <li role="presentation" class="nav-item" routerLinkActive="active"><a routerLink="/Dash-manager/Submission">Submission</a></li>
+        <li role="presentation" class="nav-item" routerLinkActive="active"><a routerLink="/Dash-manager/Check">Check</a></li>
+    </ul>
+</div>
+
+<div class="row" style="overflow: hidden;">
+    <div class="col-md-2">
+        <user-panel [user]="user">
+        </user-panel>
+    </div>
+
+    <div class="col-md-10" style="padding-top:10px;">
+        <router-outlet></router-outlet>
+    </div>
+</div>

@@ -25,7 +25,8 @@ app.use('/libs', express.static('node_modules/core-js/client'));
 app.use('/libs', express.static('node_modules/zone.js/dist'));
 app.use('/libs', express.static('node_modules/reflect-metadata'));
 app.use('/libs', express.static('node_modules/angular2-highcharts'));
-app.use('/libs', express.static('node_modules/angular2-highcharts/node_modules/highcharts'));
+// app.use('/libs', express.static('node_modules/angular2-highcharts/dist'));
+app.use('/@highcharts', express.static('node_modules/highcharts'));
 app.use('/@maps', express.static('node_modules/angular2-google-maps/core'));
 app.use('/@pagination', express.static('node_modules/ng2-pagination/dist'));
 
@@ -66,11 +67,31 @@ app.get('/api/address',(req,res)=>{
     });
 });
 
+app.get('/api/address/:aid', (req, res)=>{
+    Address.find({_id:req.params.aid}, (err,addr)=>{
+        if (err) res.send(err);
+        res.json(addr);
+    });
+});
+
 app.post('/api/address',(req,res)=>{
     var obj = new Address(req.body);
     obj.save(function(err, obj) {
             if(err) return console.error(err);
             res.status(200).json(obj);
+    });
+});
+
+app.put('/api/address/info/:id',(req,res)=>{
+    // console.log("body is "+JSON.stringify(req.body)+" id is "+req.params.id);
+    // Address.findOneAndUpdate({_id:req.params.id}, req.body, (err)=>{
+    //     if (err) return console.error(err);
+    //     res.sendStatus(200);
+    // });
+    Address.findOneAndUpdate({_id:req.params.id},{$push:{info:req.body}},{safe: true, upsert: true},(err,result)=>{
+        if (err) console.error(err);
+        console.log("result is "+JSON.stringify(result));
+        res.sendStatus(200);
     });
 });
 
@@ -256,18 +277,42 @@ app.get(/^\/api\/energy\/time=([^\/]+)\/resident=([^\/]+)$/,(req,res)=>{
           });
 });
 
-app.get(/^\/api\/energy\/time=([^\/]+)\/address=([^\/]+)$/,(req,res)=>{
+app.get(/^\/api\/energy\/time=([^\/]+)\/address=([^\/]+)\/type=([^\/]+)$/,(req,res)=>{
     let time = req.params[0];
     let addr = req.params[1];
-    let tmp_array=[];
+    let type = req.params[2];
     let condition;
     if(time==="all")
     {
-        condition = {resident:{ $in: tmp_array }};
+        condition = {building:addr,type:type}
     }
     else
     {
-        condition = {resident:{ $in: tmp_array },period:time};
+        condition = {period:time,building:addr,type:type}
+    }
+
+    Energy.find(condition,null,{sort: {period: 1}},(err,result)=>{
+        if(err) console.log(err);
+        res.json(result);
+    })
+});
+
+app.get(/^\/api\/energy\/time=([^\/]+)\/address=([^\/]+)$/,(req,res)=>{
+    let time = req.params[0];
+    let addr = req.params[1];
+    let tmp_array=addr.split(',');
+    let condition;
+    // Energy.find({building:{$in:tmp_array}},(err,result)=>{
+    //     if (err) res.send(err);
+    //     res.json(result);
+    // })
+    if(time==="all")
+    {
+        condition = {building:{ $in: tmp_array }};
+    }
+    else
+    {
+        condition = {building:{ $in: tmp_array },period:time};
     }
     async.waterfall([
         (callback)=>{
@@ -281,7 +326,7 @@ app.get(/^\/api\/energy\/time=([^\/]+)\/address=([^\/]+)$/,(req,res)=>{
         },
         (callback)=>{
             Energy.find(condition)
-                .populate('resident','account')
+                // .populate('resident','account')
                 .exec((err,result)=>{
                     // console.log("result:"+result);
                     res.json(result);

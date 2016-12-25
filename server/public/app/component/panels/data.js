@@ -21,13 +21,16 @@ System.register(['@angular/core'], function(exports_1, context_1) {
             DataPanelComponent = class DataPanelComponent {
                 constructor() {
                 }
+                ngOnInit() {
+                    console.log("location.pathname is " + location.pathname);
+                    this.buildingId = location.pathname.split('/')[3];
+                }
             };
             DataPanelComponent = __decorate([
                 core_1.Component({
                     selector: 'data-panel',
                     templateUrl: 'panels/data-panel.html',
-                    styles: [],
-                    inputs: ['buildingId']
+                    styles: []
                 }), 
                 __metadata('design:paramtypes', [])
             ], DataPanelComponent);

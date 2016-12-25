@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/router'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/router', '../service/login'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '@angular/router'], function(exports_1, contex
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1;
+    var core_1, router_1, login_1;
     var DashJComponent;
     return {
         setters:[
@@ -19,19 +19,24 @@ System.register(['@angular/core', '@angular/router'], function(exports_1, contex
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+            },
+            function (login_1_1) {
+                login_1 = login_1_1;
             }],
         execute: function() {
             DashJComponent = class DashJComponent {
-                constructor(router) {
+                constructor(router, loginService) {
                     this.router = router;
+                    this.loginService = loginService;
                     this.router.navigate(['/Dash-janitor/Map']);
+                    this.user = loginService.getUser();
                 }
             };
             DashJComponent = __decorate([
                 core_1.Component({
                     templateUrl: "dashboardJ.html"
                 }), 
-                __metadata('design:paramtypes', [router_1.Router])
+                __metadata('design:paramtypes', [router_1.Router, login_1.LoginService])
             ], DashJComponent);
             exports_1("DashJComponent", DashJComponent);
         }

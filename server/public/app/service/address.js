@@ -30,6 +30,9 @@ System.register(['@angular/core', '@angular/http', 'rxjs/add/operator/map'], fun
                 getAddresses() {
                     return this.http.get('/api/address').map(res => res.json());
                 }
+                getAddressById(aid) {
+                    return this.http.get(`/api/address/${aid}`).map(res => res.json());
+                }
                 getCoordinator(address) {
                     let params = new http_1.URLSearchParams();
                     params.set('address', 'Insinoorinkatu+60,+Tampere,+Finland');
@@ -51,6 +54,11 @@ System.register(['@angular/core', '@angular/http', 'rxjs/add/operator/map'], fun
                     let headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');
                     return this.http.post("/api/address", JSON.stringify(addr), { headers: headers });
+                }
+                addAddressInfo(aid, info) {
+                    let headers = new http_1.Headers();
+                    headers.append('Content-Type', 'application/json');
+                    return this.http.put(`/api/address/info/${aid}`, JSON.stringify(info), { headers: headers });
                 }
                 editAddress(addr) {
                     let headers = new http_1.Headers();

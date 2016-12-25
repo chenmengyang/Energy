@@ -31,7 +31,7 @@ System.register(['@angular/core', '@angular/router', '@angular/common'], functio
                     this.location = location;
                     this.addressList = [];
                     this.clickAddress = new core_1.EventEmitter();
-                    this.selected = this.location.path().split('/')[3];
+                    this.selected = this.location.path().split('/')[2];
                 }
                 ngAfterContentInit() {
                 }

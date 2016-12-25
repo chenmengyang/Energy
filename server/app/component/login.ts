@@ -38,9 +38,9 @@ export class LoginComponent {
         {
             this.router.navigate(['/Dash-janitor']);
         }
-        else if(role==="resident")
+        else if(role==="manager")
         {
-            this.router.navigate(['/Dash-resident']);
+            this.router.navigate(['/Dash-manager']);
         }
         else
         {

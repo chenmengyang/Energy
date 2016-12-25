@@ -4,7 +4,88 @@
         </user-panel>
     </div>
     <div class="col-md-8">
-        <router-outlet></router-outlet>
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">Info box 
+                <button type="button" class="btn btn-default pull-right" aria-label="Right Align" (click)="openModalInfo()">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add
+                </button>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item clearfix" *ngFor="let msg of messageBox">
+                        <span class="badge">{{msg.time}}</span>
+                        {{msg.text}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!--Info modal-->
+        <div class="modal fade" id="infoModal" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">New message</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <textarea name="info" [(ngModel)]="infoText">Enter text here...</textarea>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addInfo()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!---->
+        <div class="panel panel-default">
+        <div class="panel-heading clearfix">Data Collection </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                <li class="list-group-item clearfix">
+                    <button type="button" name="electricity" class="btn btn-default pull-right" aria-label="Right Align" data-toggle="modal" (click)="openModal($event)">
+                        <span class="badge">Electricity</span>
+                    </button>
+                    {{energy_electricity}}
+                </li>
+                <li class="list-group-item clearfix">
+                    <button type="button" name="heater" class="btn btn-default pull-right" aria-label="Right Align" data-toggle="modal" (click)="openModal($event)">
+                        <span class="badge">Heat</span>
+                    </button>
+                    {{energy_heater}}
+                </li>
+                <li class="list-group-item clearfix">
+                    <button type="button" name="water" class="btn btn-default pull-right" aria-label="Right Align" data-toggle="modal" (click)="openModal($event)">
+                        <span class="badge">Water</span>
+                    </button>
+                    {{energy_water}}
+                </li>
+            </ul>
+        </div>
+        </div>
+    <!--modal-->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    <chart [options]="chart_option"></chart>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Export</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     </div>
     <div class="col-md-2">
         <address-panel [addressList]="addresses" (clickAddress)="switch_address($event)">

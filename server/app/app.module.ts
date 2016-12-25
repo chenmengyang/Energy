@@ -6,11 +6,12 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
 import {LoginComponent,DashComponent,HistoryComponent,
         DashRComponent,DashJComponent,JSubmitComponent,
-        ChartComponent,HelpComponent,AddressComponent,
+        HelpComponent,AddressComponent,//ChartComponent
         JanitorComponent,ResidentComponent,JCheckComponent,
         RAnalyseComponent,MapComponent,mapAdminComponent,
         ManagerComponent,BuildingComponent,AddressListComponent,
-        UserPanelComponent,DataPanelComponent} from './component'
+        UserPanelComponent,DataPanelComponent,DashMComponent,
+        InfoboxPanelComponent} from './component'
 import {LoginService} from './service/login';
 import {enableProdMode} from '@angular/core';
 import { ChartModule } from 'angular2-highcharts';
@@ -23,7 +24,7 @@ const routing = RouterModule.forRoot([
         {path: '', component: LoginComponent},
         {path: 'Dash-admin', component: DashComponent,children:[
             {path:'',component:DashComponent},
-            {path:'Map',component:mapAdminComponent},
+            {path:'Map',component:MapComponent},
             {path:'Address',component:AddressComponent},
             {path:'Janitor',component:JanitorComponent},
             {path:'Managers',component:ManagerComponent},
@@ -33,19 +34,20 @@ const routing = RouterModule.forRoot([
             {path:'',component:DashJComponent},
             {path:'Map',component:MapComponent},
             {path:'Submission',component:JSubmitComponent},
-            {path:'Check',component:JCheckComponent},
+            {path:'Check',component:null}, //JCheckComponent
         ]},
-        {path: 'Dash-resident', component: DashRComponent,children:[
-            {path:'',component:DashRComponent},
-            {path:'Analyse',component:RAnalyseComponent},
-            {path:'History',component:null},
+        {path: 'Dash-manager', component: DashMComponent,children:[
+            {path:'',component:DashMComponent},
+            {path:'Map',component:MapComponent},
+            {path:'Submission',component:null},
+            {path:'Check',component:null},
         ]},
         {path: 'History', component: HistoryComponent},
-        {path: 'Chart', component: ChartComponent},
+        // {path: 'Chart', component: ChartComponent},
         {path: 'Help', component: HelpComponent},
-        {path: 'Building', component: BuildingComponent,children:[
-            {path:'',component:BuildingComponent},
-            {path:'Data/:id',component:DataPanelComponent}
+        {path: 'Building/:id', component: BuildingComponent,children:[
+            // {path:'',component:BuildingComponent},
+            // {path:'Data/:id',component:DataPanelComponent}
         ]}
 ]);
 
@@ -66,8 +68,9 @@ const routing = RouterModule.forRoot([
                    DashComponent,
                    DashJComponent,
                    DashRComponent,
+                   DashMComponent,
                    HistoryComponent,
-                   ChartComponent,
+                //    ChartComponent,
                    HelpComponent,
     			   LoginComponent,
                    AddressComponent,
@@ -82,7 +85,8 @@ const routing = RouterModule.forRoot([
                    BuildingComponent,
                    AddressListComponent,
                    UserPanelComponent,
-                   DataPanelComponent],
+                   DataPanelComponent,
+                   InfoboxPanelComponent],
     providers: [LoginService],
     bootstrap: [AppComponent]
 })

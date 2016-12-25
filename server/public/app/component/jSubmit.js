@@ -1,4 +1,4 @@
-System.register(['@angular/core', '../service/address', '../service/resident', '../service/login', '../service/energy', '@angular/forms'], function(exports_1, context_1) {
+System.register(['@angular/core', '../service/address', '../service/login', '../service/energy', '@angular/forms'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '../service/address', '../service/resident', '
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, address_1, resident_1, login_1, energy_1, forms_1;
+    var core_1, address_1, login_1, energy_1, forms_1;
     var JSubmitComponent;
     return {
         setters:[
@@ -19,9 +19,6 @@ System.register(['@angular/core', '../service/address', '../service/resident', '
             },
             function (address_1_1) {
                 address_1 = address_1_1;
-            },
-            function (resident_1_1) {
-                resident_1 = resident_1_1;
             },
             function (login_1_1) {
                 login_1 = login_1_1;
@@ -34,13 +31,13 @@ System.register(['@angular/core', '../service/address', '../service/resident', '
             }],
         execute: function() {
             JSubmitComponent = class JSubmitComponent {
-                constructor(residentService, energyService, addressService, formBuilder, loginService) {
-                    this.residentService = residentService;
+                constructor(energyService, addressService, formBuilder, loginService) {
                     this.energyService = energyService;
                     this.addressService = addressService;
                     this.formBuilder = formBuilder;
                     this.loginService = loginService;
                     this.residents = [];
+                    this.buildings = [];
                     this.types = ['water', 'heater', 'electricity'];
                     this.Energys = [];
                     this.energy = {};
@@ -49,13 +46,13 @@ System.register(['@angular/core', '../service/address', '../service/resident', '
                     this.period = new forms_1.FormControl("", forms_1.Validators.required);
                     this.type = new forms_1.FormControl("", forms_1.Validators.required);
                     this.value = new forms_1.FormControl("", forms_1.Validators.required);
-                    this.resident = new forms_1.FormControl("", forms_1.Validators.required);
+                    this.building = new forms_1.FormControl("", forms_1.Validators.required);
                     this.time = (new Date()).toISOString().substr(0, 7);
                 }
                 ngOnInit() {
                     this.loadEnergys();
                     this.addEnergyForm = this.formBuilder.group({
-                        resident: this.resident,
+                        building: this.building,
                         period: this.period,
                         type: this.type,
                         value: this.value
@@ -65,23 +62,36 @@ System.register(['@angular/core', '../service/address', '../service/resident', '
                     this.energyService.getEnergyByAddress(this.time, this.loginService.getResponsibilty())
                         .subscribe(data => {
                         this.Energys = data;
-                        console.log("data:" + JSON.stringify(data['resident']));
+                        this.Energys.map(x => {
+                            this.addressService.getAddressById(x['building'])
+                                .subscribe(addr => {
+                                x['address'] = addr[0]['name'];
+                            });
+                        });
                     }, err => console.log("error loadEnergys!"));
                 }
                 ngAfterViewInit() {
-                    this.loadRes();
+                    this.loadBuildings();
                 }
-                loadRes() {
-                    this.residentService.getResidentByAddress().subscribe(data => {
-                        this.residents = data;
-                    }, err => console.log("error loadRes!"));
+                loadBuildings() {
+                    this.loginService.getResponsibilty().forEach(aid => {
+                        this.addressService.getAddressById(aid)
+                            .subscribe(addr => {
+                            this.buildings.push(addr[0]);
+                            // console.log("this.buildings is "+this.buildings);
+                        });
+                    });
                 }
                 submitAdd() {
                     let formValue = this.addEnergyForm.value;
                     // formValue["role"] = "janitor";
                     this.energyService.addEnergy(this.addEnergyForm.value).subscribe(res => {
                         var newEnergy = res.json();
-                        this.Energys.push(newEnergy);
+                        this.addressService.getAddressById(newEnergy["building"])
+                            .subscribe(x => {
+                            newEnergy["address"] = x[0]['name'];
+                            this.Energys.push(newEnergy);
+                        });
                         this.addEnergyForm.reset();
                     }, err => console.log(err));
                 }
@@ -112,9 +122,9 @@ System.register(['@angular/core', '../service/address', '../service/resident', '
             JSubmitComponent = __decorate([
                 core_1.Component({
                     templateUrl: "jsubmit.html",
-                    providers: [address_1.AddressService, resident_1.ResidentService, energy_1.EnergyService]
+                    providers: [address_1.AddressService, energy_1.EnergyService]
                 }), 
-                __metadata('design:paramtypes', [resident_1.ResidentService, energy_1.EnergyService, address_1.AddressService, forms_1.FormBuilder, login_1.LoginService])
+                __metadata('design:paramtypes', [energy_1.EnergyService, address_1.AddressService, forms_1.FormBuilder, login_1.LoginService])
             ], JSubmitComponent);
             exports_1("JSubmitComponent", JSubmitComponent);
         }

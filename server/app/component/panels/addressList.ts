@@ -18,7 +18,7 @@ export class AddressListComponent implements AfterContentInit{
                 private route:ActivatedRoute,
                 private location:Location)
     {
-        this.selected = this.location.path().split('/')[3];
+        this.selected = this.location.path().split('/')[2];
     }
 
     ngAfterContentInit()

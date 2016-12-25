@@ -58,7 +58,8 @@ System.register(['@angular/core', '../service/address'], function(exports_1, con
             mapAdminComponent = __decorate([
                 core_1.Component({
                     template: `
-    <map-panel [markers]="buildings" [lat]="lat" [lng]="lng"> </map-panel>
+    <map-panel> </map-panel>
+    <chart [options]="options"></chart>
     `,
                     providers: [address_1.AddressService],
                 }), 

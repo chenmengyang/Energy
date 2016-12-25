@@ -7,8 +7,12 @@ export class EnergyService{
     constructor(private http:Http){
     }
 
-    getEnergyByAddress(time:string,address:string) {
+    getEnergyByAddress(time:string,address:string[]) {
         return this.http.get(`api/energy/time=${time}/address=${address}`).map(res => res.json());
+    }
+
+    getEnergyByAddressType(time:string,address:string,type:string) {
+        return this.http.get(`api/energy/time=${time}/address=${address}/type=${type}`).map(res => res.json());
     }
 
     getEnergyByResident(time:string,resident:string) {

@@ -54,7 +54,7 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/router'
                 { path: '', component: component_1.LoginComponent },
                 { path: 'Dash-admin', component: component_1.DashComponent, children: [
                         { path: '', component: component_1.DashComponent },
-                        { path: 'Map', component: component_1.mapAdminComponent },
+                        { path: 'Map', component: component_1.MapComponent },
                         { path: 'Address', component: component_1.AddressComponent },
                         { path: 'Janitor', component: component_1.JanitorComponent },
                         { path: 'Managers', component: component_1.ManagerComponent },
@@ -64,20 +64,18 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/router'
                         { path: '', component: component_1.DashJComponent },
                         { path: 'Map', component: component_1.MapComponent },
                         { path: 'Submission', component: component_1.JSubmitComponent },
-                        { path: 'Check', component: component_1.JCheckComponent },
+                        { path: 'Check', component: null },
                     ] },
-                { path: 'Dash-resident', component: component_1.DashRComponent, children: [
-                        { path: '', component: component_1.DashRComponent },
-                        { path: 'Analyse', component: component_1.RAnalyseComponent },
-                        { path: 'History', component: null },
+                { path: 'Dash-manager', component: component_1.DashMComponent, children: [
+                        { path: '', component: component_1.DashMComponent },
+                        { path: 'Map', component: component_1.MapComponent },
+                        { path: 'Submission', component: null },
+                        { path: 'Check', component: null },
                     ] },
                 { path: 'History', component: component_1.HistoryComponent },
-                { path: 'Chart', component: component_1.ChartComponent },
+                // {path: 'Chart', component: ChartComponent},
                 { path: 'Help', component: component_1.HelpComponent },
-                { path: 'Building', component: component_1.BuildingComponent, children: [
-                        { path: '', component: component_1.BuildingComponent },
-                        { path: 'Data/:id', component: component_1.DataPanelComponent }
-                    ] }
+                { path: 'Building/:id', component: component_1.BuildingComponent, children: [] }
             ]);
             AppModule = class AppModule {
             };
@@ -99,8 +97,9 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/router'
                         component_1.DashComponent,
                         component_1.DashJComponent,
                         component_1.DashRComponent,
+                        component_1.DashMComponent,
                         component_1.HistoryComponent,
-                        component_1.ChartComponent,
+                        //    ChartComponent,
                         component_1.HelpComponent,
                         component_1.LoginComponent,
                         component_1.AddressComponent,
@@ -115,7 +114,8 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/router'
                         component_1.BuildingComponent,
                         component_1.AddressListComponent,
                         component_1.UserPanelComponent,
-                        component_1.DataPanelComponent],
+                        component_1.DataPanelComponent,
+                        component_1.InfoboxPanelComponent],
                     providers: [login_1.LoginService],
                     bootstrap: [app_component_1.AppComponent]
                 }), 

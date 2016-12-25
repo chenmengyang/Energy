@@ -29,6 +29,9 @@ System.register(['@angular/core', '@angular/http', 'rxjs/add/operator/map'], fun
                 getEnergyByAddress(time, address) {
                     return this.http.get(`api/energy/time=${time}/address=${address}`).map(res => res.json());
                 }
+                getEnergyByAddressType(time, address, type) {
+                    return this.http.get(`api/energy/time=${time}/address=${address}/type=${type}`).map(res => res.json());
+                }
                 getEnergyByResident(time, resident) {
                     return this.http.get(`api/energy/time=${time}/resident=${resident}`).map(res => res.json());
                 }
