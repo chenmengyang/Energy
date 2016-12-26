@@ -5,6 +5,8 @@ import {LoginService} from '../service/login';
 import {AddressService} from '../service/address';
 import {EnergyService} from '../service/energy';
 import { Router} from '@angular/router';
+// import '@highcharts/modules/exporting.js';
+
 declare var $: any;
 @Component({
     templateUrl: "building.html",
@@ -21,6 +23,10 @@ export class BuildingComponent implements OnInit {
     energy_heater:any=null;
     energy_water:any=null;
     time = (new Date()).toISOString().substr(0,7);
+    current_year = (new Date()).toISOString().substr(0,4);
+    last_year = String(Number((new Date()).toISOString().substr(0,4))-1);
+    data_current = [];
+    data_last = [];
     //
     private chart_option:Object;
     private option_array:any[]=[];
@@ -134,7 +140,9 @@ export class BuildingComponent implements OnInit {
             btn = target;
         }
         let keyword = btn.attributes.name.nodeValue;
-        console.log("keyword is "+keyword);
+        // console.log("keyword is "+keyword);
+        this.data_current = [null,null,null,null,null,null,null,null,null,null,null,null];
+        this.data_last = [null,null,null,null,null,null,null,null,null,null,null,null];
         this.energyService.getEnergyByAddressType("all",this.selected_address._id,keyword)
             .subscribe(x=>{
                 this.option_array = [];
@@ -143,22 +151,67 @@ export class BuildingComponent implements OnInit {
                 if(x.length)
                 {
                     x.forEach(element=>{
-                        this.option_array.push([Date.UTC(element.period.substr(0,4),element.period.substr(5,7)),element.value]);
+                        let yy = element.period.substr(0,4);
+                        let mm = element.period.substr(5,7);
+                        //
+                        if(yy===this.current_year)
+                        {
+                            this.data_current[Number(mm)-1] = element.value;
+                        }
+                        else if(yy===this.last_year)
+                        {
+                            this.data_last[Number(mm)-1] = element.value;
+                        }
+                        // this.option_array.push([Date.UTC(element.period.substr(0,4),element.period.substr(5,7)),element.value]);
                     });
                     this.chart_option = {
                                             credits: {enabled: false},
                                             chart : {type: 'column'},
                                             title : { text : `${keyword} usage` },
-                                            series: [{
-                                                data: this.option_array,
-                                            }],
-                                            xAxis: {type: 'datetime',
-                                                    dateTimeLabelFormats:{
-                                                        // month: '%e. %b',
-                                                        month: '%b %e, %Y'
+                                            series: [
+                                                {
+                                                    name:this.current_year,
+                                                    data:this.data_current
+                                                },
+                                                {
+                                                    name:this.last_year,
+                                                    data:this.data_last
+                                                }
+                                            ],
+                                            xAxis: {categories: [
+                                                            'Jan',
+                                                            'Feb',
+                                                            'Mar',
+                                                            'Apr',
+                                                            'May',
+                                                            'Jun',
+                                                            'Jul',
+                                                            'Aug',
+                                                            'Sep',
+                                                            'Oct',
+                                                            'Nov',
+                                                            'Dec'
+                                                        ], crosshair: true},
+                                            yAxis: {
+                                                        min: 0,
+                                                        title: {
+                                                            text: 'value'
+                                                        }
+                                                   },
+                                            tooltip: {
+                                                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                                            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                                                        footerFormat: '</table>',
+                                                        shared: true,
+                                                        useHTML: true
                                                     },
-                                                    title: {text:'Date'}
-                                        }
+                                            plotOptions: {
+                                                column: {
+                                                    pointPadding: 0.2,
+                                                    borderWidth: 0
+                                                }
+                                            }
                                         };
                 }
                 $("#myModal").modal();
