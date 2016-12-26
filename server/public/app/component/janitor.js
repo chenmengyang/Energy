@@ -67,9 +67,6 @@ System.register(['@angular/core', '../service/address', '../service/janitor', '@
                     this.janitorService.getJanitors().subscribe(data => this.Janitors = data, err => console.log("error loading address!"));
                 }
                 submitAdd() {
-                    // console.log("asxasfa:" + JSON.stringify(this.addJanitorForm.value.responsibility));
-                    // let formValue = this.addJanitorForm.value;
-                    // formValue["role"] = "janitor";
                     this.addJanitorForm.value["role"] = "janitor";
                     this.addJanitorForm.value["responsibility"] = [];
                     this.janitorService.addJanitor(this.addJanitorForm.value).subscribe(res => {

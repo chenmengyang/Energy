@@ -70,9 +70,6 @@ export class JanitorComponent {
 
     submitAdd()
     {
-        // console.log("asxasfa:" + JSON.stringify(this.addJanitorForm.value.responsibility));
-        // let formValue = this.addJanitorForm.value;
-        // formValue["role"] = "janitor";
         this.addJanitorForm.value["role"] = "janitor";
         this.addJanitorForm.value["responsibility"] = [];
         this.janitorService.addJanitor(this.addJanitorForm.value).subscribe(
