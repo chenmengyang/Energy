@@ -14,6 +14,7 @@ declare var $:any;
 export class JSubmitComponent {
     private residents:any[] = [];
     private buildings:any[] = [];
+    private periodList:any[] = ['01','02','03','04','05','06','07','08','09','10','11','12'];
 
     private types = ['water','heater','electricity'];
     private Energys:any = [];
@@ -29,13 +30,16 @@ export class JSubmitComponent {
     private building = new FormControl("", Validators.required);
 
     private time = (new Date()).toISOString().substr(0,7);
+    private year:string = (new Date()).toISOString().substr(0,4);
 
     constructor(private energyService:EnergyService,
                 private addressService:AddressService,
                 private formBuilder: FormBuilder,
                 private loginService:LoginService)
     {
-
+        this.periodList.forEach((p,index)=>{
+            this.periodList[index] = this.year + '- ' + this.periodList[index];
+        });
     }
 
     ngOnInit()

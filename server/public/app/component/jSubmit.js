@@ -38,6 +38,7 @@ System.register(['@angular/core', '../service/address', '../service/login', '../
                     this.loginService = loginService;
                     this.residents = [];
                     this.buildings = [];
+                    this.periodList = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
                     this.types = ['water', 'heater', 'electricity'];
                     this.Energys = [];
                     this.energy = {};
@@ -48,6 +49,10 @@ System.register(['@angular/core', '../service/address', '../service/login', '../
                     this.value = new forms_1.FormControl("", forms_1.Validators.required);
                     this.building = new forms_1.FormControl("", forms_1.Validators.required);
                     this.time = (new Date()).toISOString().substr(0, 7);
+                    this.year = (new Date()).toISOString().substr(0, 4);
+                    this.periodList.forEach((p, index) => {
+                        this.periodList[index] = this.year + '- ' + this.periodList[index];
+                    });
                 }
                 ngOnInit() {
                     this.loadEnergys();

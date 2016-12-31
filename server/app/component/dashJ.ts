@@ -4,7 +4,20 @@ import {LoginService} from '../service/login';
 import {UserPanelComponent} from './panels/user';
 
 @Component({
-    templateUrl: "dashboardJ.html"
+    templateUrl: "dashboardJ.html",
+    styles:[
+        `
+       div.row{
+           display:flex;
+           margin-top:4px;
+       }
+        `,
+        `
+       div.col-md-2{
+           padding:0;
+       }
+        `
+    ]
     // providers:[UserService]
 })
 export class DashJComponent {

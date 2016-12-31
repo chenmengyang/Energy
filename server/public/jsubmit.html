@@ -64,7 +64,10 @@
                 </select>
             </div>
 			<div class="form-group">
-				<input class="form-control" type="text" name="period" formControlName="period" placeholder="period">
+				<input class="form-control" list="periodList" type="text" name="period" formControlName="period" placeholder="period">
+				<datalist id="periodList" style="overflow: scroll">
+					<option *ngFor="let p of periodList" [value]="p">
+				</datalist>
 			</div>
 			<div class="form-group">
                 <select id="type_selection" class="form-control" formControlName="type">

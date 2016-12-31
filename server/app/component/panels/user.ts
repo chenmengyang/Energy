@@ -7,6 +7,12 @@ import { Component} from '@angular/core';
     div.thumbnail{
       height: 100%
     }
+  `,
+  `
+    span{
+      display:block;
+      margin-top:5px;
+    }
   `
   ],
 	inputs:['user']

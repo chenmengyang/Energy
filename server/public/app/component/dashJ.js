@@ -34,7 +34,20 @@ System.register(['@angular/core', '@angular/router', '../service/login'], functi
             };
             DashJComponent = __decorate([
                 core_1.Component({
-                    templateUrl: "dashboardJ.html"
+                    templateUrl: "dashboardJ.html",
+                    styles: [
+                        `
+       div.row{
+           display:flex;
+           margin-top:4px;
+       }
+        `,
+                        `
+       div.col-md-2{
+           padding:0;
+       }
+        `
+                    ]
                 }), 
                 __metadata('design:paramtypes', [router_1.Router, login_1.LoginService])
             ], DashJComponent);

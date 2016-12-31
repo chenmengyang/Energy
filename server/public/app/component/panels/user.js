@@ -30,6 +30,12 @@ System.register(['@angular/core'], function(exports_1, context_1) {
     div.thumbnail{
       height: 100%
     }
+  `,
+                        `
+    span{
+      display:block;
+      margin-top:5px;
+    }
   `
                     ],
                     inputs: ['user']
