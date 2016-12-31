@@ -34,7 +34,20 @@ System.register(['@angular/core', '@angular/router', '../service/login'], functi
             };
             DashComponent = __decorate([
                 core_1.Component({
-                    templateUrl: "dashboard.html"
+                    templateUrl: "dashboard.html",
+                    styles: [
+                        `
+       div.row{
+           display:flex;
+           margin-top:4px;
+       }
+        `,
+                        `
+       div.col-md-2{
+           padding:0;
+       }
+        `
+                    ]
                 }), 
                 __metadata('design:paramtypes', [router_1.Router, login_1.LoginService])
             ], DashComponent);

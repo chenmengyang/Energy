@@ -6,12 +6,25 @@ import {AddressService} from '../../service/address';
 @Component({
   selector: 'map-panel',
   templateUrl: './panels/map-panel.html',
-  styles:[
+  styles:
+  [
+	  `
+		.panel-default{
+		  margin:0;
+	  }
+	  `
+		,
+		`
+		.panel-body{
+			padding:0;
+		}
+		`
+	  ,
       `.sebm-google-map-container {
-  height: 500px;
-  width: 800px;
-}
-`
+		  height:480px;
+		  
+		}
+	`
   ],
   providers:[AddressService]
 	// inputs:['markers','lat','lng']

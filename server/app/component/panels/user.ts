@@ -3,7 +3,12 @@ import { Component} from '@angular/core';
 @Component({
   selector: 'user-panel',
   templateUrl: 'panels/user-panel.html',
-  styles:[],
+  styles:[`
+    div.thumbnail{
+      height: 100%
+    }
+  `
+  ],
 	inputs:['user']
 })
 

@@ -26,7 +26,12 @@ System.register(['@angular/core'], function(exports_1, context_1) {
                 core_1.Component({
                     selector: 'user-panel',
                     templateUrl: 'panels/user-panel.html',
-                    styles: [],
+                    styles: [`
+    div.thumbnail{
+      height: 100%
+    }
+  `
+                    ],
                     inputs: ['user']
                 }), 
                 __metadata('design:paramtypes', [])

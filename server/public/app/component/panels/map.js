@@ -110,11 +110,21 @@ System.register(['@angular/core', '@angular/router', '../../service/login', '../
                     selector: 'map-panel',
                     templateUrl: './panels/map-panel.html',
                     styles: [
+                        `
+		.panel-default{
+		  margin:0;
+	  }
+	  `,
+                        `
+		.panel-body{
+			padding:0;
+		}
+		`,
                         `.sebm-google-map-container {
-  height: 500px;
-  width: 800px;
-}
-`
+		  height:480px;
+		  
+		}
+	`
                     ],
                     providers: [address_1.AddressService]
                 }), 

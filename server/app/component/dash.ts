@@ -4,8 +4,20 @@ import {LoginService} from '../service/login';
 import {UserPanelComponent} from './panels/user';
 
 @Component({
-    templateUrl: "dashboard.html"
-    // providers:[UserService]
+    templateUrl: "dashboard.html",
+    styles:[
+        `
+       div.row{
+           display:flex;
+           margin-top:4px;
+       }
+        `,
+        `
+       div.col-md-2{
+           padding:0;
+       }
+        `
+    ]
 })
 export class DashComponent {
 

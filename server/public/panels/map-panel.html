@@ -3,7 +3,7 @@
     <h3 class="panel-title">{{title}}</h3>
   </div>
   <div class="panel-body">
-    <sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+    <sebm-google-map class="sebm-google-map-container" [latitude]="lat" [longitude]="lng" [zoom]="zoom">
           <!--[label]="m.label"-->
       <sebm-google-map-marker
           *ngFor="let m of markers; let i = index"
