@@ -45,6 +45,11 @@ System.register(['@angular/core', '@angular/http', 'rxjs/add/operator/map'], fun
                     headers.append('Content-Type', 'application/json');
                     return this.http.put("/api/energy/" + energy._id, JSON.stringify(energy), { headers: headers });
                 }
+                updateEnergyValue(building, period, type, value) {
+                    let headers = new http_1.Headers();
+                    headers.append('Content-Type', 'application/json');
+                    return this.http.put(`api/energy/period=${period}/building=${building}/type=${type}`, JSON.stringify({ value: value }), { headers: headers });
+                }
                 deleteEnergy(energy) {
                     let headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');

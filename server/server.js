@@ -277,6 +277,42 @@ app.get(/^\/api\/energy\/time=([^\/]+)\/resident=([^\/]+)$/,(req,res)=>{
           });
 });
 
+// update energy value or insert if not yet exist
+app.put(/^\/api\/energy\/period=([^\/]+)\/building=([^\/]+)\/type=([^\/]+)$/,(req,res)=>{
+    let period = req.params[0];
+    let building = req.params[1];
+    let type = req.params[2];
+
+    Energy.find({period:period,type:type,building:building},(err,result)=>{
+        if(err) console.log(err);
+        if(result.length)
+        {
+            Energy.update({period:period,type:type,building:building},{$set:{value:Number(req.body.value)}},(err)=>{
+                if (err) return console.error(err);
+                res.sendStatus(200);
+            });
+        }
+        else
+        {
+            let obj = new Energy({
+                period:period,
+                building:building,
+                type:type,
+                value:Number(req.body.value)
+            });
+            obj.save(function(err, obj) {
+                if(err) return console.error(err);
+                res.status(200).json(obj);
+            });
+        }
+    })
+
+    // Energy.update({period:period,type:type,building:building},{$set:{value:Number(req.body.value)}},(err)=>{
+    //     if (err) return console.error(err);
+    //     res.sendStatus(200);
+    // });
+});
+
 app.get(/^\/api\/energy\/time=([^\/]+)\/address=([^\/]+)\/type=([^\/]+)$/,(req,res)=>{
     let time = req.params[0];
     let addr = req.params[1];

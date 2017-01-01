@@ -51,7 +51,7 @@ System.register(['@angular/core', '../service/address', '../service/login', '../
                     this.time = (new Date()).toISOString().substr(0, 7);
                     this.year = (new Date()).toISOString().substr(0, 4);
                     this.periodList.forEach((p, index) => {
-                        this.periodList[index] = this.year + '- ' + this.periodList[index];
+                        this.periodList[index] = this.year + '-' + this.periodList[index];
                     });
                 }
                 ngOnInit() {

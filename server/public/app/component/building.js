@@ -48,12 +48,9 @@ System.register(['@angular/core', '../service/login', '../service/address', '../
                     this.data_current = [];
                     this.data_last = [];
                     this.option_array = [];
-                    // this.chart_option = {
-                    //             title : { text : 'simple chart' },
-                    //             series: [{
-                    //                 data: [29.9, 71.5, 106.4, 129.2],
-                    //             }]
-                    //         };
+                    //
+                    this.update_keyword = "unknown";
+                    this.dataValue = null;
                     this.user = loginService.getUser();
                     addressService.getAddresses().subscribe(a => {
                         this.addresses = a;
@@ -122,7 +119,7 @@ System.register(['@angular/core', '../service/login', '../service/address', '../
                         btn = target;
                     }
                     let keyword = btn.attributes.name.nodeValue;
-                    // console.log("keyword is "+keyword);
+                    // 
                     this.data_current = [null, null, null, null, null, null, null, null, null, null, null, null];
                     this.data_last = [null, null, null, null, null, null, null, null, null, null, null, null];
                     this.energyService.getEnergyByAddressType("all", this.selected_address._id, keyword)
@@ -195,11 +192,103 @@ System.register(['@angular/core', '../service/login', '../service/address', '../
                         $("#myModal").modal();
                     });
                 }
+                openModalUpdate(event) {
+                    if (!this.selected_address._id) {
+                        this.selected_address._id = location.pathname.split('/')[2];
+                    }
+                    let target = event.target || event.srcElement || event.currentTarget;
+                    let btn;
+                    if (!target.attributes.name) {
+                        btn = target.parentNode;
+                    }
+                    else {
+                        btn = target;
+                    }
+                    this.update_keyword = btn.attributes.name.nodeValue;
+                    if (this.update_keyword === "electricity") {
+                        this.dataValue = this.energy_electricity;
+                    }
+                    else if (this.update_keyword === "heater") {
+                        this.dataValue = this.energy_heater;
+                    }
+                    else {
+                        this.dataValue = this.energy_water;
+                    }
+                    $("#updateModal").modal();
+                }
+                updateDate() {
+                    this.energyService.updateEnergyValue(this.selected_address._id, this.time, this.update_keyword, this.dataValue)
+                        .subscribe(x => {
+                        this.refresh_energy(this.selected_address._id);
+                    });
+                }
             };
             BuildingComponent = __decorate([
                 core_1.Component({
                     templateUrl: "building.html",
-                    providers: [address_1.AddressService, energy_1.EnergyService]
+                    providers: [address_1.AddressService, energy_1.EnergyService],
+                    styles: [
+                        `
+        textarea{
+            width:100%;
+        }
+        `,
+                        `
+        button.head{
+            border-radius:5px;
+            padding:3px;
+            font-size: 9px;
+        }
+        `,
+                        `
+        button.chart{
+            float:right;
+            padding-left:5px;
+            padding-right:5px;
+            padding-top:2px;
+            padding-bottom:2px;
+        }
+        `,
+                        `
+        i.data{
+            width:15px;
+        }
+        `,
+                        `
+        p.labelx{
+            display:inline-block;
+            width:65px;
+            text-align:center;
+        }
+        `,
+                        `
+        li.list-group-item{
+            padding-bottom:2px;
+            padding-top:5px;
+        }
+        `,
+                        `
+        div.modal-body{
+            text-align:center;
+        }
+        `,
+                        `
+        input{
+            padding:4px;
+            margin-left:3px;
+        }
+        `,
+                        `
+        span.timeSpan{
+            background-color:grey;
+            border-radius:5px;
+            padding:4px;
+            color:white;
+            margin-right:5px;
+            margin-bottom:5px;
+        }
+        `
+                    ]
                 }), 
                 __metadata('design:paramtypes', [login_1.LoginService, address_1.AddressService, energy_1.EnergyService, router_1.Router])
             ], BuildingComponent);

@@ -10,7 +10,70 @@ import { Router} from '@angular/router';
 declare var $: any;
 @Component({
     templateUrl: "building.html",
-    providers:[AddressService,EnergyService]
+    providers:[AddressService,EnergyService],
+    styles:[
+        `
+        textarea{
+            width:100%;
+        }
+        `,
+        `
+        button.head{
+            border-radius:5px;
+            padding:3px;
+            font-size: 9px;
+        }
+        `,
+        `
+        button.chart{
+            float:right;
+            padding-left:5px;
+            padding-right:5px;
+            padding-top:2px;
+            padding-bottom:2px;
+        }
+        `
+        ,
+        `
+        i.data{
+            width:15px;
+        }
+        `,
+        `
+        p.labelx{
+            display:inline-block;
+            width:65px;
+            text-align:center;
+        }
+        `,
+        `
+        li.list-group-item{
+            padding-bottom:2px;
+            padding-top:5px;
+        }
+        `,
+        `
+        div.modal-body{
+            text-align:center;
+        }
+        `,
+        `
+        input{
+            padding:4px;
+            margin-left:3px;
+        }
+        `,
+        `
+        span.timeSpan{
+            background-color:grey;
+            border-radius:5px;
+            padding:4px;
+            color:white;
+            margin-right:5px;
+            margin-bottom:5px;
+        }
+        `
+    ]
 })
 
 export class BuildingComponent implements OnInit {
@@ -32,7 +95,9 @@ export class BuildingComponent implements OnInit {
     private option_array:any[]=[];
     //
     infoText:string;
-
+    //
+    update_keyword:string = "unknown";
+    dataValue:number = null;
     ngOnInit()
     {
         this.refresh_messages(location.pathname.split('/')[2]);
@@ -44,12 +109,6 @@ export class BuildingComponent implements OnInit {
                 private energyService:EnergyService,
                 private route:Router)
     {
-        // this.chart_option = {
-        //             title : { text : 'simple chart' },
-        //             series: [{
-        //                 data: [29.9, 71.5, 106.4, 129.2],
-        //             }]
-        //         };
         this.user = loginService.getUser();
         addressService.getAddresses().subscribe(
             a => {
@@ -140,7 +199,7 @@ export class BuildingComponent implements OnInit {
             btn = target;
         }
         let keyword = btn.attributes.name.nodeValue;
-        // console.log("keyword is "+keyword);
+        // 
         this.data_current = [null,null,null,null,null,null,null,null,null,null,null,null];
         this.data_last = [null,null,null,null,null,null,null,null,null,null,null,null];
         this.energyService.getEnergyByAddressType("all",this.selected_address._id,keyword)
@@ -216,6 +275,45 @@ export class BuildingComponent implements OnInit {
                 }
                 $("#myModal").modal();
             });
-        
+    }
+
+    openModalUpdate(event:any)
+    {
+        if(!this.selected_address._id)
+        {
+            this.selected_address._id = location.pathname.split('/')[2];
+        }
+        let target = event.target || event.srcElement || event.currentTarget;
+        let btn;
+        if(!target.attributes.name)
+        {
+            btn = target.parentNode;
+        }
+        else
+        {
+            btn = target;
+        }
+        this.update_keyword = btn.attributes.name.nodeValue;
+        if (this.update_keyword==="electricity")
+        {
+            this.dataValue = this.energy_electricity;
+        }
+        else if(this.update_keyword==="heater")
+        {
+            this.dataValue = this.energy_heater;
+        }
+        else
+        {
+            this.dataValue = this.energy_water;
+        }
+        $("#updateModal").modal();
+    }
+
+    updateDate()
+    {
+        this.energyService.updateEnergyValue(this.selected_address._id,this.time,this.update_keyword,this.dataValue)
+            .subscribe(x=>{
+                this.refresh_energy(this.selected_address._id);
+            });
     }
 }

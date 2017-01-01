@@ -5,16 +5,17 @@
     </div>
     <div class="col-md-8">
         <div class="panel panel-default">
-            <div class="panel-heading clearfix">Info box 
-                <button type="button" class="btn btn-default pull-right" aria-label="Right Align" (click)="openModalInfo()">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add
+            <div class="panel-heading clearfix"> <i class="fa fa-info" aria-hidden="true"></i> Info box 
+                <button type="button" class="btn btn-default pull-right head" aria-label="Right Align" (click)="openModalInfo()">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </button>
             </div>
             <div class="panel-body">
                 <ul class="list-group">
                     <li class="list-group-item clearfix" *ngFor="let msg of messageBox">
-                        <span class="badge">{{msg.time}}</span>
                         {{msg.text}}
+                        <button type="button" class="btn head pull-right"><i class="fa fa-times" aria-hidden="true"></i></button>
+                        <span class="pull-right timeSpan">{{msg.time}}</span>
                     </li>
                 </ul>
             </div>
@@ -43,31 +44,69 @@
 
         <!---->
         <div class="panel panel-default">
-        <div class="panel-heading clearfix">Data Collection </div>
-        <div class="panel-body">
-            <ul class="list-group">
-                <li class="list-group-item clearfix">
-                    <button type="button" name="electricity" class="btn btn-default pull-right" aria-label="Right Align" data-toggle="modal" (click)="openModal($event)">
-                        <span class="badge">Electricity</span>
-                    </button>
-                    {{energy_electricity}}
-                </li>
-                <li class="list-group-item clearfix">
-                    <button type="button" name="heater" class="btn btn-default pull-right" aria-label="Right Align" data-toggle="modal" (click)="openModal($event)">
-                        <span class="badge">Heat</span>
-                    </button>
-                    {{energy_heater}}
-                </li>
-                <li class="list-group-item clearfix">
-                    <button type="button" name="water" class="btn btn-default pull-right" aria-label="Right Align" data-toggle="modal" (click)="openModal($event)">
-                        <span class="badge">Water</span>
-                    </button>
-                    {{energy_water}}
-                </li>
-            </ul>
+            <div class="panel-heading clearfix"> <i class="fa fa-database" aria-hidden="true"></i> Data Collection </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item clearfix">
+                        <i class="fa fa-bolt data" aria-hidden="true"></i> <p class="labelx">Electricity:</p>
+                        <button type="button" name="electricity" class="btn btn-default chart"  data-toggle="modal" (click)="openModal($event)">
+                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                        </button>
+
+                        <button type="button" name="electricity" class="btn btn-default chart"  data-toggle="modal" (click)="openModalUpdate($event)">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </button>
+                        {{energy_electricity}}
+                    </li>
+                    <li class="list-group-item clearfix">
+                        <i class="fa fa-snowflake-o data" aria-hidden="true"></i> <p class="labelx">Heat:</p>
+                        <button type="button" name="heater" class="btn btn-default chart"  data-toggle="modal" (click)="openModal($event)">
+                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                        </button>
+
+                        <button type="button" name="heater" class="btn btn-default chart"  data-toggle="modal" (click)="openModalUpdate($event)">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </button>
+                        {{energy_heater}}
+                    </li>
+                    <li class="list-group-item clearfix">
+                        <i class="fa fa-tint data" aria-hidden="true"></i> <p class="labelx">Water:</p>
+                        <button type="button" name="water" class="btn btn-default chart"  data-toggle="modal" (click)="openModal($event)">
+                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                        </button>
+
+                        <button type="button" name="water" class="btn btn-default chart"  data-toggle="modal" (click)="openModalUpdate($event)">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </button>
+                        {{energy_water}}
+                    </li>
+                </ul>
+            </div>
         </div>
+
+    <!--modal update-->
+    <div class="modal fade" id="updateModal" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Data for {{time}}</h4>
+                </div>
+                <div class="modal-body">
+
+                    Update {{update_keyword}} value:
+                     <input type="text" [(ngModel)]="dataValue" [value]="dataValue">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateDate()">Submit</button>
+                </div>
+            </div>
         </div>
-    <!--modal-->
+    </div>
+
+    <!--modal chart-->
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">

@@ -5,7 +5,24 @@ import { Location} from '@angular/common';
 @Component({
     selector: 'address-panel',
     templateUrl: 'panels/address-panel.html',
-    styles:[],
+    styles:[
+        `
+        ul{
+            overflow-y:scroll;
+        }
+        `,
+        `
+        li a{
+            color: #000;
+        }
+        `,
+        `
+        li a:hover:not(.active){
+            background-color: #555;
+            color: white;
+        }
+        `
+    ],
     inputs:['addressList'],
     outputs:['clickAddress']
 })

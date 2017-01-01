@@ -38,7 +38,7 @@ export class JSubmitComponent {
                 private loginService:LoginService)
     {
         this.periodList.forEach((p,index)=>{
-            this.periodList[index] = this.year + '- ' + this.periodList[index];
+            this.periodList[index] = this.year + '-' + this.periodList[index];
         });
     }
 

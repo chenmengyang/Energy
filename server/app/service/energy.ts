@@ -31,6 +31,13 @@ export class EnergyService{
         return this.http.put("/api/energy/"+energy._id, JSON.stringify(energy), {headers: headers});
     }
 
+    updateEnergyValue(building:string,period:string,type:string,value:number)
+    {
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.put(`api/energy/period=${period}/building=${building}/type=${type}`, JSON.stringify({value:value}), {headers: headers});
+    }
+
     deleteEnergy(energy) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
