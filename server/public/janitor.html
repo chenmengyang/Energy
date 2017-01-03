@@ -37,7 +37,7 @@
 										</div>
 										<div class="modal-body">
 											<div class="checkbox" *ngFor="let address of ass">
-												<label><input type="checkbox" [value]="address._id" (click)="edit_responsibility($event)" [(ngModel)]="address.isSelected" >{{address.name}}</label>
+												<input type="checkbox" [value]="address._id" (click)="edit_responsibility($event)" [(ngModel)]="address.isSelected" ><span class="res">{{address.name}}</span>
 											</div>
 										</div>
 										<div class="modal-footer">

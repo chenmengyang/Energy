@@ -11,7 +11,9 @@ import { Component} from '@angular/core';
   `
     span{
       display:block;
-      margin-top:5px;
+      max-width:200px;
+      margin-top:10px;
+      overflow:hidden;
     }
   `
   ],

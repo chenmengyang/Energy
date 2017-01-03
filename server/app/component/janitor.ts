@@ -7,7 +7,29 @@ import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 declare var $:any;
 @Component({
     templateUrl: "janitor.html",
-    providers:[AddressService,JanitorService]
+    providers:[AddressService,JanitorService],
+    styles:[
+        `
+        div.checkbox{
+            position:relative;
+        }
+        `
+        ,
+        `
+        div.checkbox input{
+            position:absolute;
+            left:30px;
+        }
+        `,
+        `
+        span.res{
+            display:block;
+            width:200px;
+            text-align:left;
+            padding-left:28px;
+        }
+        `
+    ]
 })
 export class JanitorComponent {
     private ass:any = [];

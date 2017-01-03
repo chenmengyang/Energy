@@ -139,7 +139,28 @@ System.register(['@angular/core', '../service/address', '../service/janitor', '@
             JanitorComponent = __decorate([
                 core_1.Component({
                     templateUrl: "janitor.html",
-                    providers: [address_1.AddressService, janitor_1.JanitorService]
+                    providers: [address_1.AddressService, janitor_1.JanitorService],
+                    styles: [
+                        `
+        div.checkbox{
+            position:relative;
+        }
+        `,
+                        `
+        div.checkbox input{
+            position:absolute;
+            left:30px;
+        }
+        `,
+                        `
+        span.res{
+            display:block;
+            width:200px;
+            text-align:left;
+            padding-left:28px;
+        }
+        `
+                    ]
                 }), 
                 __metadata('design:paramtypes', [janitor_1.JanitorService, address_1.AddressService, forms_1.FormBuilder])
             ], JanitorComponent);

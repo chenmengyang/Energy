@@ -56,7 +56,13 @@ System.register(['@angular/core', '@angular/router', '@angular/common'], functio
         }
         `,
                         `
-        li a:hover:not(.active){
+        li .active{
+            color: white;
+            background-color:75D8C4;
+        }
+        `,
+                        `
+        li :hover:not(.active){
             background-color: #555;
             color: white;
         }

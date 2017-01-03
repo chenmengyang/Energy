@@ -34,7 +34,9 @@ System.register(['@angular/core'], function(exports_1, context_1) {
                         `
     span{
       display:block;
-      margin-top:5px;
+      max-width:200px;
+      margin-top:10px;
+      overflow:hidden;
     }
   `
                     ],
