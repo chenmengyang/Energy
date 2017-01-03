@@ -106,21 +106,31 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
-#footer {
-   margin-top: 20px;
-   padding-top: 20px;
-   position:fixed;
-   left:0px;
-   bottom:0px;
-   height:30px;
-   width:100%;
-   background:#999;
+div.container{
+  min-height: 550px;
+}
+
+footer{
+    width: 100%;
+    background-color: #999;
+    margin-top: 10px;
+    font-size: 70%;
 }
 
 .row-footer{
-    background-color: #999;
+    padding: 4px 0px 2px 0px;
 }
 
+ul.social{
+  list-style-type:none;
+  margin-top:30px;
+}
+
+ul.social li a{
+  display: block;
+  float: left;
+  margin: 5px;
+}
 /*table{
   background-color:#76b852;
 }

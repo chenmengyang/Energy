@@ -30,7 +30,19 @@ System.register(['@angular/core', './service/login'], function(exports_1, contex
             AppComponent = __decorate([
                 core_1.Component({
                     selector: 'my-app',
-                    templateUrl: 'app.html'
+                    templateUrl: 'app.html',
+                    styles: [
+                        `
+        .navbar-nav .nav-item.active a {
+            color: #ffffff !important;
+            font-weight: 600;
+            background: none !important;
+            outline: none;
+            box-shadow: none !important;
+            border-bottom: 6px solid #ffffff;
+        }
+        `
+                    ]
                 }), 
                 __metadata('design:paramtypes', [login_1.LoginService])
             ], AppComponent);

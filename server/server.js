@@ -35,6 +35,10 @@ app.get('/', function(req, res){
   res.json({"text":"1 suck"});
 });
 
+// app.get('/', function(req, res){
+//   res.send('hello world');
+// });
+
 app.get('/login', function(req, res){
   User.find({},function(err,users){
       if(err) res.json(err);
@@ -54,10 +58,6 @@ app.post('/login', function(req, res){
                 res.status(400).send('Wrong Account/Password')
             }
         })
-});
-
-app.get('/', function(req, res){
-  res.send('hello world');
 });
 
 app.get('/api/address',(req,res)=>{
@@ -306,11 +306,6 @@ app.put(/^\/api\/energy\/period=([^\/]+)\/building=([^\/]+)\/type=([^\/]+)$/,(re
             });
         }
     })
-
-    // Energy.update({period:period,type:type,building:building},{$set:{value:Number(req.body.value)}},(err)=>{
-    //     if (err) return console.error(err);
-    //     res.sendStatus(200);
-    // });
 });
 
 app.get(/^\/api\/energy\/time=([^\/]+)\/address=([^\/]+)\/type=([^\/]+)$/,(req,res)=>{
