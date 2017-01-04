@@ -5,15 +5,10 @@
 * Download and install [Mongodb](https://www.mongodb.com) on your computer
 * git clone this repository to your computer
 
-## Generate fake data (users and energy usage) into your database
+## Open db
 * Make sure you have successfully install mongodb
-* Make sure you have start the mongodb server on your pc, using localhost and port 27017
-* go to the server folder on command line tool, type this command to :
-```
-Don't need to do this anymore
-node fakeUser.js
-node fakeEnergy.js
-```
+* Make sure you have start the mongodb server on your pc, using localhost and port 27017 (<span style="color:red">! important</span>)
+* Initialise one admin user in you db.(can be hard if you are not a coder, contact Chen)
 
 ## Start Server
 * Go to server folder on command line mode
