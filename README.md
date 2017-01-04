@@ -7,7 +7,7 @@
 
 ## Open db
 * Make sure you have successfully install mongodb
-* Make sure you have start the mongodb server on your pc, using localhost and port 27017 (<span style="color:red">! important</span>)
+* Make sure you have start the mongodb server on your pc, using localhost and port 27017 (<p style="color:red">! important</p>)
 * Initialise one admin user in you db.(can be hard if you are not a coder, contact Chen)
 
 ## Start Server
