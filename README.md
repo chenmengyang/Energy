@@ -17,7 +17,7 @@ node server.js
 ```
 * Open [this link](http://localhost:3000) (localhost:3000) on your browser to see the homepage (make sure your safari is the newest version if you are using it as browser)
 
-* APIs (GET,PUT,POST,DELETE......)
+* APIs (GET,PUT,POST,DELETE...... You don't need to understand the server codes if you are not coder, just to know with server Apis we can process those different kind of data inside the db)
  * janitor
  * property manager
  * address/building
