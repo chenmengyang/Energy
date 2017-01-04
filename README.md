@@ -7,7 +7,7 @@
 
 ## Open db
 * Make sure you have successfully install mongodb
-* Make sure you have start the mongodb server on your pc, using localhost and port 27017 (<p style="color:red">! important</p>)
+* Make sure you have start the mongodb server on your pc, using localhost and port 27017 (! important)
 * Initialise one admin user in you db.(can be hard if you are not a coder, contact Chen)
 
 ## Start Server
@@ -17,5 +17,8 @@ node server.js
 ```
 * Open [this link](http://localhost:3000) (localhost:3000) on your browser to see the homepage (make sure your safari is the newest version if you are using it as browser)
 
-* APIs
- * 
+* APIs (GET,PUT,POST,DELETE......)
+ * janitor
+ * property manager
+ * address/building
+ * energy data
