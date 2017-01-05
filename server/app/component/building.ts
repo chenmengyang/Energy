@@ -72,6 +72,22 @@ declare var $: any;
             margin-right:5px;
             margin-bottom:5px;
         }
+        `,
+        `
+        #info{
+            display:none;
+        }
+        `,
+        `
+        span#msgLength{
+            margin-left:4px;
+            padding-left:6px;
+            padding-right:6px;
+            border-radius:10px;
+            color:white;
+            font-weight:bold;
+            background-color:#a3a3a3;
+        }
         `
     ]
 })
@@ -160,10 +176,13 @@ export class BuildingComponent implements OnInit {
         this.refresh_messages(this.selected_address._id);
         this.refresh_energy(this.selected_address._id);
         this.route.navigate([`/Building/${this.selected_address._id}`]);
+        document.getElementById("info").style.display = "none";
+        document.getElementById("info_icon").className = "fa fa-caret-right";
     }
 
-    openModalInfo()
+    openModalInfo(event:any)
     {
+        event.stopPropagation();
         if(!this.selected_address._id)
         {
             this.selected_address._id = location.pathname.split('/')[2];
@@ -275,6 +294,24 @@ export class BuildingComponent implements OnInit {
                 }
                 $("#myModal").modal();
             });
+    }
+
+    info_click()
+    {
+        let x = document.getElementById("info");
+        let i = document.getElementById("info_icon");
+        console.log("x.style.display is "+x.style.display);
+        if (!x.style.display || x.style.display==="none")
+        {
+            x.style.display = "block";
+            x.style.paddingLeft = "5px";
+            i.className = "fa fa-caret-down";
+        }
+        else
+        {
+            x.style.display = "none";
+            i.className = "fa fa-caret-right";
+        }
     }
 
     openModalUpdate(event:any)

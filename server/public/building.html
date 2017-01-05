@@ -5,12 +5,13 @@
     </div>
     <div class="col-md-8">
         <div class="panel panel-default">
-            <div class="panel-heading clearfix"> <i class="fa fa-info" aria-hidden="true"></i> Info box 
-                <button type="button" class="btn btn-default pull-right head" aria-label="Right Align" (click)="openModalInfo()">
+            <div class="panel-heading clearfix" (click)="info_click()"> <i id="info_icon" class="fa fa-caret-right" aria-hidden="true"></i> Info box
+                <span id="msgLength">{{messageBox.length}}</span>
+                <button type="button" class="btn btn-default pull-right head" aria-label="Right Align" (click)="openModalInfo($event)">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </button>
             </div>
-            <div class="panel-body">
+            <div class="panel-body" id="info">
                 <ul class="list-group">
                     <li class="list-group-item clearfix" *ngFor="let msg of messageBox">
                         {{msg.text}}
