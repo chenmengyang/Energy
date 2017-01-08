@@ -62,7 +62,6 @@ export class JanitorComponent {
 			password: this.password,
 			email: this.email,
             phone: this.phone
-            // responsibility: this.responsibility
 		});
     }
     

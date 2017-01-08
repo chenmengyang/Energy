@@ -20,3 +20,4 @@ export * from './component/panels/user';
 export * from './component/panels/map';
 export * from './component/panels/data';
 export * from './component/panels/infobox';
+export * from './component/config';

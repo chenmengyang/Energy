@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit} from '@angular/core';
 import { Router} from '@angular/router';
 import {LoginService} from '../../service/login';
+import {EnergyService} from '../../service/energy';
+import {RuleService} from '../../service/rule';
 import {AddressService} from '../../service/address';
 
 @Component({
@@ -26,7 +28,7 @@ import {AddressService} from '../../service/address';
 		}
 	`
   ],
-  providers:[AddressService]
+  providers:[AddressService,EnergyService,RuleService]
 	// inputs:['markers','lat','lng']
 })
 
@@ -39,20 +41,27 @@ export class MapComponent implements OnDestroy,OnInit{
   lng: number = 7.809007;
   markers: marker[] = [
   ];
-	private colors = ['green','red','yellow'];
+	private colors = ['danger','warning','success'];
+	private rules:any[] = [];
+
+	private water_warning:number;
+	private water_danger:number;
+	private heater_warning:number;
+	private heater_danger:number;
+	private electricity_warning:number;
+	private electricity_danger:number;
 	// private options;
 	addr:any = [];
+	current_month = (new Date()).toISOString().substr(0,7);
 
   constructor(private router:Router,
 							private loginService:LoginService,
-							private addressService:AddressService)
+							private addressService:AddressService,
+							private energyService:EnergyService,
+							private ruleService:RuleService)
   {
-	// this.options = {
-	// 			title : { text : 'simple chart' },
-	// 			series: [{
-	// 				data: [29.9, 71.5, 106.4, 129.2],
-	// 			}]
-	// 		};
+		let tmp:marker;
+		this.setIcon("585bac6e9e97fc80d06cee3e",tmp);
   }
 
 	ngOnInit()
@@ -71,12 +80,12 @@ export class MapComponent implements OnDestroy,OnInit{
 								tmp['draggable'] = false;
 								tmp['_id'] = addrx._id;
 								tmp['label'] = addrx.name;
-								let index = Math.floor(Math.random()*3);
-								tmp['icon'] = `/image/mm_20_${this.colors[index]}.png`;
+								// let index = Math.floor(Math.random()*3);
+								tmp['icon'] = `/image/success.png`;
 								this.markers.push(tmp);
 								this.getCenter();
 							}
-						)
+						);
 					});
 				},
 				err => {console.log(err);}
@@ -96,8 +105,8 @@ export class MapComponent implements OnDestroy,OnInit{
 									tmp['draggable'] = false;
 									tmp['_id'] = addrx._id;
 									tmp['label'] = addrx.name;
-									let index = Math.floor(Math.random()*3);
-									tmp['icon'] = `/image/mm_20_${this.colors[index]}.png`;
+									// let index = Math.floor(Math.random()*3);
+									tmp['icon'] = `/image/success.png`;
 									this.markers.push(tmp);
 									this.getCenter();
 								}
@@ -106,6 +115,36 @@ export class MapComponent implements OnDestroy,OnInit{
 					)
 			});
 		}
+	}
+
+	setIcon(addressId:string,m:marker)
+	{
+		if(this.rules.length === 0)
+		{
+			this.ruleService.getRule().subscribe(
+				r => {
+					this.rules = r;
+					this.water_danger = this.rules.filter(e=>{return e.type==="water"&&e.level==="danger"})[0].threshold;
+					this.water_warning = this.rules.filter(e=>{return e.type==="water"&&e.level==="warning"})[0].threshold;
+					this.heater_danger = this.rules.filter(e=>{return e.type==="heater"&&e.level==="danger"})[0].threshold;
+					this.heater_warning = this.rules.filter(e=>{return e.type==="heater"&&e.level==="warning"})[0].threshold;
+					this.electricity_danger = this.rules.filter(e=>{return e.type==="electricity"&&e.level==="danger"})[0].threshold;
+					this.electricity_warning = this.rules.filter(e=>{return e.type==="electricity"&&e.level==="warning"})[0].threshold;
+					console.log("this.electricity_warning is " + this.electricity_warning);
+				}
+			);
+		}
+		else // rules are ready loaded
+		{
+			this.energyService.getEnergyByAddressType(this.current_month,addressId,"water").
+				subscribe(record=>{
+				});
+		}
+	}
+
+	compareValue(aid:string)
+	{
+
 	}
 
 	getCenter()
@@ -128,7 +167,7 @@ export class MapComponent implements OnDestroy,OnInit{
 
 	ngOnDestroy()
 	{
-		// console.log(this.addr);
+
 	}
 }
 

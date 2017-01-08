@@ -1,0 +1,95 @@
+<div class="row">
+    <div class="col-md-2">
+        <user-panel [user]="user">
+        </user-panel>
+    </div>
+
+    <div class="col-md-10">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h5 class="card-header">Current Rules ({{Rules.length}})</h5>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered table-condensed table-hover">
+                    <thead class="thead-default">
+                        <tr>
+                            <th>Type</th>
+                            <th>Level</th>
+                            <th>Threshold</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="Rules.length === 0">
+                        <tr style="background-color:grey">
+                            <td colspan="5">There are no rules currently.</td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="!isEditing">
+                        <tr *ngFor="let rule of Rules|paginate: { itemsPerPage: 8, currentPage: p }" [ngClass]="rule.level">
+                            <td>{{rule.type}}</td>
+                            <td>{{rule.level}}</td>
+                            <td>{{rule.threshold}}</td>
+                            <td>
+                                <button class="btn btn-sm btn-default" (click)="enableEditing(rule)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+                                <button class="btn btn-sm btn-danger" (click)="submitRemove(rule)"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="text-align: center;">
+                                <pagination-controls (pageChange)="p = $event" #api></pagination-controls>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <tbody *ngIf="isEditing">
+                        <tr>
+                            <td colspan="4">
+                                <form class="form-inline" #form="ngForm" (ngSubmit)="submitEdit(rule)" style="display:inline">
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="type" [(ngModel)]="rule.type" placeholder="type" required disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="level" [(ngModel)]="rule.level" placeholder="level" required disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="threshold" [(ngModel)]="rule.threshold" placeholder="threshold" required>
+                                    </div>
+                                    <button class="btn btn-sm btn-primary" type="submit" [disabled]="!form.form.valid"><i class="fa fa-floppy-o"></i> Save</button>
+                                </form>
+                                <button class="btn btn-sm btn-warning" (click)="cancelEditing()"><i class="fa fa-times"></i> Cancel</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="panel panel-default" *ngIf="!isEditing">
+            <div class="panel-heading">
+                <h5 class="card-header">Add new rule</h5>
+            </div>
+            <div class="panel-body">
+                <form class="form-inline" [formGroup]="addRuleForm" (ngSubmit)="submitAdd()" style="text-align:center">
+                    <div class="form-group">
+                        <!--<input class="form-control" type="text" name="type" formControlName="type" placeholder="type">-->
+                        <select id="type_selection" class="form-control" formControlName="type">
+                            <option value="" selected disabled>Type</option>
+                            <option *ngFor="let t of types" [value]="t">{{t}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <!--<input class="form-control" type="text" name="level" formControlName="level" placeholder="level">-->
+                        <select id="level_selection" class="form-control" formControlName="level">
+                            <option value="" selected disabled>Level</option>
+                            <option *ngFor="let l of levels" [value]="l">{{l}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="threshold" formControlName="threshold" placeholder="threshold">
+                    </div>
+                    <button class="btn btn-primary" type="submit" [disabled]="!addRuleForm.valid"><i class="fa fa-floppy-o"></i>Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

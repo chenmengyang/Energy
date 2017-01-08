@@ -73,7 +73,7 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/router'
                         { path: 'Check', component: null },
                     ] },
                 { path: 'History', component: component_1.HistoryComponent },
-                // {path: 'Chart', component: ChartComponent},
+                { path: 'Config', component: component_1.ConfigComponent },
                 { path: 'Help', component: component_1.HelpComponent },
                 { path: 'Building/:id', component: component_1.BuildingComponent, children: [] }
             ]);
@@ -99,7 +99,7 @@ System.register(['@angular/core', '@angular/platform-browser', '@angular/router'
                         component_1.DashRComponent,
                         component_1.DashMComponent,
                         component_1.HistoryComponent,
-                        //    ChartComponent,
+                        component_1.ConfigComponent,
                         component_1.HelpComponent,
                         component_1.LoginComponent,
                         component_1.AddressComponent,

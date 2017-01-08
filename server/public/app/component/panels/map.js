@@ -1,4 +1,4 @@
-System.register(['@angular/core', '@angular/router', '../../service/login', '../../service/address'], function(exports_1, context_1) {
+System.register(['@angular/core', '@angular/router', '../../service/login', '../../service/energy', '../../service/rule', '../../service/address'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['@angular/core', '@angular/router', '../../service/login', '../
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, login_1, address_1;
+    var core_1, router_1, login_1, energy_1, rule_1, address_1;
     var MapComponent;
     return {
         setters:[
@@ -23,29 +23,35 @@ System.register(['@angular/core', '@angular/router', '../../service/login', '../
             function (login_1_1) {
                 login_1 = login_1_1;
             },
+            function (energy_1_1) {
+                energy_1 = energy_1_1;
+            },
+            function (rule_1_1) {
+                rule_1 = rule_1_1;
+            },
             function (address_1_1) {
                 address_1 = address_1_1;
             }],
         execute: function() {
             MapComponent = class MapComponent {
-                constructor(router, loginService, addressService) {
+                constructor(router, loginService, addressService, energyService, ruleService) {
                     this.router = router;
                     this.loginService = loginService;
                     this.addressService = addressService;
+                    this.energyService = energyService;
+                    this.ruleService = ruleService;
                     this.title = 'Building markers on the map';
                     this.zoom = 12;
                     this.lat = 51.678418;
                     this.lng = 7.809007;
                     this.markers = [];
-                    this.colors = ['green', 'red', 'yellow'];
+                    this.colors = ['danger', 'warning', 'success'];
+                    this.rules = [];
                     // private options;
                     this.addr = [];
-                    // this.options = {
-                    // 			title : { text : 'simple chart' },
-                    // 			series: [{
-                    // 				data: [29.9, 71.5, 106.4, 129.2],
-                    // 			}]
-                    // 		};
+                    this.current_month = (new Date()).toISOString().substr(0, 7);
+                    let tmp;
+                    this.setIcon("585bac6e9e97fc80d06cee3e", tmp);
                 }
                 ngOnInit() {
                     this.user = this.loginService.getUser();
@@ -59,8 +65,8 @@ System.register(['@angular/core', '@angular/router', '../../service/login', '../
                                     tmp['draggable'] = false;
                                     tmp['_id'] = addrx._id;
                                     tmp['label'] = addrx.name;
-                                    let index = Math.floor(Math.random() * 3);
-                                    tmp['icon'] = `/image/mm_20_${this.colors[index]}.png`;
+                                    // let index = Math.floor(Math.random()*3);
+                                    tmp['icon'] = `/image/success.png`;
                                     this.markers.push(tmp);
                                     this.getCenter();
                                 });
@@ -78,14 +84,35 @@ System.register(['@angular/core', '@angular/router', '../../service/login', '../
                                     tmp['draggable'] = false;
                                     tmp['_id'] = addrx._id;
                                     tmp['label'] = addrx.name;
-                                    let index = Math.floor(Math.random() * 3);
-                                    tmp['icon'] = `/image/mm_20_${this.colors[index]}.png`;
+                                    // let index = Math.floor(Math.random()*3);
+                                    tmp['icon'] = `/image/success.png`;
                                     this.markers.push(tmp);
                                     this.getCenter();
                                 });
                             });
                         });
                     }
+                }
+                setIcon(addressId, m) {
+                    if (this.rules.length === 0) {
+                        this.ruleService.getRule().subscribe(r => {
+                            this.rules = r;
+                            this.water_danger = this.rules.filter(e => { return e.type === "water" && e.level === "danger"; })[0].threshold;
+                            this.water_warning = this.rules.filter(e => { return e.type === "water" && e.level === "warning"; })[0].threshold;
+                            this.heater_danger = this.rules.filter(e => { return e.type === "heater" && e.level === "danger"; })[0].threshold;
+                            this.heater_warning = this.rules.filter(e => { return e.type === "heater" && e.level === "warning"; })[0].threshold;
+                            this.electricity_danger = this.rules.filter(e => { return e.type === "electricity" && e.level === "danger"; })[0].threshold;
+                            this.electricity_warning = this.rules.filter(e => { return e.type === "electricity" && e.level === "warning"; })[0].threshold;
+                            console.log("this.electricity_warning is " + this.electricity_warning);
+                        });
+                    }
+                    else {
+                        this.energyService.getEnergyByAddressType(this.current_month, addressId, "water").
+                            subscribe(record => {
+                        });
+                    }
+                }
+                compareValue(aid) {
                 }
                 getCenter() {
                     let lats = [];
@@ -102,7 +129,6 @@ System.register(['@angular/core', '@angular/router', '../../service/login', '../
                     this.router.navigate(['/Building/' + mid]);
                 }
                 ngOnDestroy() {
-                    // console.log(this.addr);
                 }
             };
             MapComponent = __decorate([
@@ -126,9 +152,9 @@ System.register(['@angular/core', '@angular/router', '../../service/login', '../
 		}
 	`
                     ],
-                    providers: [address_1.AddressService]
+                    providers: [address_1.AddressService, energy_1.EnergyService, rule_1.RuleService]
                 }), 
-                __metadata('design:paramtypes', [router_1.Router, login_1.LoginService, address_1.AddressService])
+                __metadata('design:paramtypes', [router_1.Router, login_1.LoginService, address_1.AddressService, energy_1.EnergyService, rule_1.RuleService])
             ], MapComponent);
             exports_1("MapComponent", MapComponent);
         }

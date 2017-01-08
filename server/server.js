@@ -7,6 +7,7 @@ let app = express();
 let User = require('./model/user.js');
 let Address = require('./model/address.js');
 let Energy = require('./model/energy.js');
+let Rule = require('./model/rule.js');
 let bodyParser = require('body-parser');
 // connect to database
 mongoose.Promise = global.Promise;
@@ -249,6 +250,36 @@ app.put('/api/residents/:id', (req, res)=>{
 
 app.delete('/api/residents/:id', (req, res)=>{
     User.findOneAndRemove({_id:req.params.id}, (err)=>{
+        if (err) return console.error(err);
+        res.sendStatus(200);
+    });
+});
+
+// Rule apis
+app.get('/api/rules',(req,res)=>{
+    Rule.find({},(err,rules)=>{
+        if(err) return console.error(err);
+        res.json(rules);
+    });
+});
+
+app.post('/api/rules',(req,res)=>{
+    var obj = new Rule(req.body);
+    obj.save(function(err, obj) {
+            if(err) return console.error(err);
+            res.status(200).json(obj);
+    });
+});
+
+app.put('/api/rules/:id',(req,res)=>{
+    Rule.findOneAndUpdate({_id:req.params.id}, req.body, (err)=>{
+        if (err) return console.error(err);
+        res.sendStatus(200);
+    });
+});
+
+app.delete('/api/rules/:id', (req, res)=>{
+    Rule.findOneAndRemove({_id:req.params.id}, (err)=>{
         if (err) return console.error(err);
         res.sendStatus(200);
     });
