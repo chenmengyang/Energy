@@ -9,6 +9,7 @@ let Address = require('./model/address.js');
 let Energy = require('./model/energy.js');
 let Rule = require('./model/rule.js');
 let bodyParser = require('body-parser');
+let request = require('request');
 // connect to database
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/energy_dev');
@@ -35,10 +36,6 @@ app.use('/@pagination', express.static('node_modules/ng2-pagination/dist'));
 app.get('/', function(req, res){
   res.json({"text":"1 suck"});
 });
-
-// app.get('/', function(req, res){
-//   res.send('hello world');
-// });
 
 app.get('/login', function(req, res){
   User.find({},function(err,users){
@@ -418,6 +415,18 @@ app.delete('/api/energy/:id', (req, res)=>{
         if (err) return console.error(err);
         res.sendStatus(200);
     });
+});
+
+// mail
+app.post('/api/mail',(req,res)=>{
+    console.log("req.body is "+ JSON.stringify(req.body));
+    request.post("https://script.google.com/macros/s/AKfycbyLRh8L4gWtgDC2zgJkCd4z7OFtyM0Wlv9se-MEzv9iZc2wlO8/exec",
+                {form:req.body}, function optionalCallback(err, httpResponse, body) {
+                            if (err) {
+                                return console.error('send failed:', err);
+                            }
+                            }
+                );
 });
 
 app.listen(3000);
